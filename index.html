@@ -1,0 +1,5291 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>Green Vistaa - Quotation Generator</title>
+<meta name="theme-color" content="#0d4d2c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="GreenVistaa">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="manifest" href="manifest.json">
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    background:#0a1e12;
+    background-image:radial-gradient(circle at 50% 8%, #164327 0%, #0a1e12 80%);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+    color:#111;
+    min-height:100vh;
+}
+
+/* ================= SCREEN FORM STYLES (MODERN, NEAT & PROFESSIONAL) ================= */
+.no-print{display:block}
+.app{
+    max-width:1160px;
+    margin:28px auto 48px;
+    padding:0 16px;
+}
+.toolbar{
+    background:linear-gradient(165deg, #143e23 0%, #0d2716 100%);
+    color:#fff;
+    padding:26px 28px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.14);
+    box-shadow:0 22px 50px rgba(4,18,9,0.48);
+}
+
+/* Header */
+.btn-install-app{
+    display:none;
+    align-items:center;
+    gap:7px;
+    padding:8px 16px;
+    background:linear-gradient(135deg, #2e9d4d 0%, #1c7336 100%);
+    color:#fff;
+    border:1px solid rgba(255,255,255,0.3);
+    border-radius:24px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(46,157,77,0.35);
+    transition:all 0.2s ease;
+}
+.btn-install-app:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 18px rgba(46,157,77,0.5);
+    background:linear-gradient(135deg, #37b75b 0%, #208740 100%);
+}
+.toolbar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    padding-bottom:18px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+    gap:14px;
+}
+.header-branding{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+.header-icon{
+    font-size:32px;
+    line-height:1;
+    filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+}
+.toolbar-header h2{
+    margin:0;
+    font-size:23px;
+    font-weight:700;
+    color:#ffffff;
+    letter-spacing:-0.3px;
+}
+.header-subtitle{
+    margin:4px 0 0 0;
+    font-size:13px;
+    color:#a3d9b5;
+    font-weight:400;
+}
+.header-badge{
+    background:rgba(34,197,94,0.18);
+    border:1px solid rgba(74,222,128,0.35);
+    font-size:12.5px;
+    font-weight:600;
+    padding:6px 14px;
+    border-radius:30px;
+    color:#d1fae5;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+.badge-dot{
+    width:8px;
+    height:8px;
+    background:#4ade80;
+    border-radius:50%;
+    box-shadow:0 0 8px #4ade80;
+    display:inline-block;
+}
+
+/* 2-Column Cards Grid */
+.cards-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-bottom:16px;
+}
+.form-card{
+    background:rgba(255,255,255,0.045);
+    border:1px solid rgba(255,255,255,0.09);
+    border-radius:12px;
+    padding:18px 20px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.card-heading{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+    padding-bottom:10px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.card-heading h3{
+    margin:0;
+    font-size:14.5px;
+    font-weight:700;
+    color:#d1fae5;
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+}
+.card-icon{
+    font-size:16px;
+}
+.card-body{
+    display:flex;
+    flex-direction:column;
+    gap:13px;
+}
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+.form-group label{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:13px;
+    margin-bottom:6px;
+    font-weight:600;
+    color:#c4ebd0;
+    letter-spacing:0.2px;
+}
+.form-group label .req{
+    color:#f87171;
+    font-weight:bold;
+}
+
+/* Input Fields */
+input, select, textarea{
+    width:100%;
+    padding:9.5px 12px;
+    border:1.5px solid #bdd5c2;
+    border-radius:8px;
+    font-size:14px;
+    font-family:inherit;
+    background:#ffffff;
+    color:#111827;
+    transition:border-color 0.2s, box-shadow 0.2s;
+    box-sizing:border-box;
+}
+input:focus, select:focus, textarea:focus{
+    outline:none;
+    border-color:#22c55e;
+    box-shadow:0 0 0 3.5px rgba(34,197,94,0.22);
+}
+textarea{
+    min-height:72px;
+    resize:vertical;
+    line-height:1.45;
+}
+.input-with-prefix{
+    display:flex;
+    align-items:stretch;
+}
+.input-prefix{
+    background:#eef7f0;
+    border:1.5px solid #bdd5c2;
+    border-right:none;
+    border-radius:8px 0 0 8px;
+    padding:0 11px;
+    font-size:13px;
+    font-weight:600;
+    color:#166534;
+    display:flex;
+    align-items:center;
+    white-space:nowrap;
+    user-select:none;
+}
+.input-with-prefix input{
+    border-radius:0 8px 8px 0;
+}
+.subgrid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+/* Payment Terms Card */
+.payment-terms-card{
+    margin-bottom:22px;
+}
+.payment-header-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+.heading-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.preset-pill-group{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-wrap:wrap;
+}
+.preset-label{
+    font-size:12px;
+    color:#a3d9b5;
+    font-weight:500;
+}
+.preset-btn{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.18);
+    color:#d1fae5;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:11.5px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.15s ease;
+}
+.preset-btn:hover{
+    background:rgba(34,197,94,0.25);
+    border-color:#4ade80;
+    color:#ffffff;
+}
+
+/* ================= ITEMS SECTION ================= */
+.items-section{
+    border-top:1px solid rgba(255,255,255,0.14);
+    padding-top:22px;
+}
+.items-header-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+    gap:10px;
+}
+.title-with-badge{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.items-header-bar h3{
+    margin:0;
+    font-size:18px;
+    font-weight:700;
+    color:#ffffff;
+}
+.items-count-badge{
+    background:rgba(52,211,153,0.2);
+    border:1px solid rgba(52,211,153,0.35);
+    color:#6ee7b7;
+    font-size:12px;
+    font-weight:700;
+    padding:3px 10px;
+    border-radius:12px;
+}
+.items-helper{
+    margin:4px 0 0 0;
+    font-size:12.5px;
+    color:#a3d9b5;
+}
+.items-header-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.quick-add-wrap{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:8px;
+    padding:4px 8px;
+}
+.quick-add-wrap select{
+    background:#ffffff;
+    border:1px solid #bdd5c2;
+    border-radius:6px;
+    padding:6px 10px;
+    font-size:12.5px;
+    font-weight:600;
+    color:#14532d;
+    cursor:pointer;
+    max-width:260px;
+}
+.btn-quick-add-blank{
+    background:#198754;
+    color:#fff;
+    border:1px solid rgba(255,255,255,0.2);
+    padding:7px 13px;
+    border-radius:7px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    transition:all 0.15s ease;
+}
+.btn-quick-add-blank:hover{
+    background:#157347;
+    transform:translateY(-1px);
+}
+
+/* Items Table Header */
+.item-table-header{
+    display:grid;
+    grid-template-columns:52px 1fr 105px 135px 145px 44px;
+    gap:10px;
+    padding:10px 14px;
+    background:rgba(0,0,0,0.32);
+    border-radius:8px;
+    font-size:12px;
+    font-weight:700;
+    color:#a7f3d0;
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+    margin-bottom:10px;
+    align-items:center;
+}
+.th-col{text-align:left;}
+.th-sno, .th-action{text-align:center;}
+.th-qty{text-align:center;}
+.th-price, .th-total{text-align:right;}
+
+/* Item Row */
+.item-row{
+    display:grid;
+    grid-template-columns:52px 1fr 105px 135px 145px 44px;
+    gap:10px;
+    margin-bottom:10px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.09);
+    border-radius:10px;
+    padding:10px 14px;
+    align-items:center;
+    transition:background 0.15s ease, border-color 0.15s ease;
+}
+.item-row:hover{
+    background:rgba(255,255,255,0.08);
+    border-color:rgba(255,255,255,0.18);
+}
+
+/* S.No Badge */
+.col-sno{
+    display:flex;
+    justify-content:center;
+}
+.sno-badge{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:#dcfce7;
+    color:#14532d;
+    font-weight:700;
+    font-size:13.5px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 4px rgba(0,0,0,0.12);
+}
+
+/* Description Dropdown & Combobox */
+.desc-combo-box{
+    display:flex;
+    gap:8px;
+    align-items:stretch;
+}
+.desc-select-dropdown{
+    width:190px;
+    min-width:170px;
+    max-width:210px;
+    background:#f0fdf4;
+    border:1.5px solid #a8cbb2;
+    border-radius:8px;
+    padding:7px 10px;
+    font-size:12.5px;
+    font-weight:600;
+    color:#14532d;
+    cursor:pointer;
+    transition:all 0.15s ease;
+}
+.desc-select-dropdown:hover{
+    background:#e2f2e6;
+    border-color:#22c55e;
+}
+.desc-select-dropdown option{
+    font-weight:normal;
+    color:#111;
+    background:#fff;
+}
+.desc-select-dropdown optgroup{
+    font-weight:bold;
+    color:#15803d;
+    background:#f9fbf9;
+}
+.row-desc-input{
+    flex:1;
+    padding:8.5px 11px;
+    font-size:13.5px;
+    border-radius:8px;
+}
+
+/* Qty Input */
+.col-qty input{
+    text-align:center;
+    padding:8.5px 6px;
+    font-size:14px;
+    font-weight:600;
+}
+
+/* Unit Price Input */
+.price-input-wrap{
+    display:flex;
+    align-items:stretch;
+}
+.price-prefix{
+    background:#eef7f0;
+    border:1.5px solid #bdd5c2;
+    border-right:none;
+    border-radius:8px 0 0 8px;
+    padding:0 7px;
+    font-size:13px;
+    font-weight:700;
+    color:#166534;
+    display:flex;
+    align-items:center;
+    user-select:none;
+}
+.row-price-input{
+    border-radius:0 8px 8px 0 !important;
+    text-align:right;
+    font-weight:600;
+    padding:8.5px 8px;
+}
+
+/* Total Display Cell */
+.total-display-cell{
+    background:#ecfdf5;
+    border:1.5px solid #a7f3d0;
+    border-radius:8px;
+    padding:8.5px 10px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:4px;
+    font-size:14px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.total-curr{
+    font-weight:700;
+    color:#047857;
+    font-size:13px;
+}
+.total-val{
+    font-weight:800;
+    color:#065f46;
+    letter-spacing:0.2px;
+}
+
+/* Remove Row Button */
+.col-action{
+    display:flex;
+    justify-content:center;
+}
+.btn-remove-row{
+    background:rgba(239,68,68,0.16);
+    border:1px solid rgba(239,68,68,0.35);
+    color:#fca5a5;
+    width:34px;
+    height:34px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    padding:0;
+    transition:all 0.18s ease;
+}
+.btn-remove-row:hover{
+    background:#dc2626;
+    border-color:#dc2626;
+    color:#ffffff;
+    transform:scale(1.05);
+}
+
+/* Total Summary Card */
+.total-summary-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,0.32);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:14px 22px;
+    border-radius:10px;
+    margin:16px 0 20px;
+    flex-wrap:wrap;
+    gap:12px;
+}
+.summary-left{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+.summary-chip{
+    font-size:13.5px;
+    font-weight:700;
+    color:#6ee7b7;
+}
+.summary-sub{
+    font-size:12px;
+    color:#a3d9b5;
+}
+.summary-right{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+}
+.total-summary-card .label{
+    font-size:16px;
+    color:#cde6d4;
+    font-weight:600;
+}
+.summary-right .currency-symbol{
+    font-size:22px;
+    font-weight:800;
+    color:#4ade80;
+}
+.total-summary-card .value{
+    font-size:27px;
+    font-weight:800;
+    color:#4ade80;
+    letter-spacing:0.5px;
+}
+
+/* Button Bar */
+.button-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.12);
+}
+.btn-group-left, .btn-group-right{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+}
+.btn{
+    border:0;
+    border-radius:8px;
+    padding:10px 16px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:13.5px;
+    font-family:inherit;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    transition:transform 0.1s, opacity 0.2s, background 0.2s;
+    box-shadow:0 2px 5px rgba(0,0,0,0.18);
+}
+.btn:hover{opacity:0.94;transform:translateY(-1px);}
+.btn:active{transform:translateY(0);}
+
+.btn-green{background:#15803d;color:#fff;}
+.btn-green:hover{background:#166534;}
+.btn-red-subtle{background:rgba(220,53,69,0.22);border:1px solid rgba(220,53,69,0.45);color:#fca5a5;}
+.btn-red-subtle:hover{background:#dc3545;color:#fff;}
+.btn-blue{background:#1d4ed8;color:#fff;}
+.btn-blue:hover{background:#1e40af;}
+.btn-wa{background:#16a34a;color:#fff;}
+.btn-wa:hover{background:#15803d;}
+.btn-preview{background:#7c3aed;color:#fff;}
+.btn-preview:hover{background:#6d28d9;}
+.btn-preview.active{background:#e11d48;}
+.btn-gray{background:#4b5563;color:#fff;}
+.btn-gray:hover{background:#374151;}
+.btn-amber{background:#d97706;color:#fff;}
+.btn-amber:hover{background:#b45309;}
+
+.btn-history-pill{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.22);
+    color:#e0f2fe;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    transition:all 0.2s ease;
+}
+.btn-history-pill:hover{
+    background:rgba(14,165,233,0.25);
+    border-color:#38bdf8;
+    color:#fff;
+    transform:translateY(-1px);
+}
+.history-badge{
+    background:#0284c7;
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    padding:2px 7px;
+    border-radius:10px;
+    line-height:1;
+}
+.btn-history-action{
+    padding:5px 9px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    border:none;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    transition:all 0.15s ease;
+}
+.btn-hist-load{background:#15803d; color:#fff;}
+.btn-hist-load:hover{background:#166534;}
+.btn-hist-wa{background:#16a34a; color:#fff;}
+.btn-hist-wa:hover{background:#15803d;}
+.btn-hist-del{background:rgba(239,68,68,0.2); color:#fca5a5; border:1px solid rgba(239,68,68,0.35);}
+.btn-hist-del:hover{background:#dc2626; color:#fff;}
+
+
+/* ================= ADMIN & CATALOG CONTROL MANAGEMENT STYLES ================= */
+.header-status{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+/* ================= OVERALL SITE ACCESS LOCK SCREEN ================= */
+.site-lock-screen{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:#0a1e12;
+    background-image:radial-gradient(circle at 50% 25%, #184c2c 0%, #081a0f 85%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    animation:fadeInLock 0.25s ease-out;
+}
+@keyframes fadeInLock{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+.lock-card{
+    width:100%;
+    max-width:440px;
+    background:linear-gradient(165deg, #133c22 0%, #0c2616 100%);
+    border:1.5px solid rgba(74,222,128,0.35);
+    border-radius:20px;
+    padding:36px 32px 28px;
+    box-shadow:0 28px 70px rgba(0,0,0,0.7), 0 0 30px rgba(34,197,94,0.15);
+    color:#fff;
+    text-align:center;
+    animation:slideUpLock 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slideUpLock{
+    from{transform:translateY(24px) scale(0.96); opacity:0;}
+    to{transform:translateY(0) scale(1); opacity:1;}
+}
+.lock-logo{
+    width:85px;
+    height:auto;
+    max-height:60px;
+    object-fit:contain;
+    margin-bottom:12px;
+    filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+}
+.lock-brand h2{
+    margin:0 0 4px 0;
+    font-size:22px;
+    font-weight:700;
+    color:#ffffff;
+    letter-spacing:-0.3px;
+}
+.lock-subtitle{
+    margin:0 0 24px 0;
+    font-size:13.5px;
+    color:#a3d9b5;
+    font-weight:400;
+}
+.lock-error{
+    background:rgba(239,68,68,0.22);
+    border:1px solid rgba(239,68,68,0.5);
+    color:#fca5a5;
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:13px;
+    margin-bottom:16px;
+    text-align:left;
+    animation:shakeErr 0.3s ease-in-out;
+}
+@keyframes shakeErr{
+    0%, 100% {transform:translateX(0);}
+    20%, 60% {transform:translateX(-6px);}
+    40%, 80% {transform:translateX(6px);}
+}
+.lock-input-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    margin-bottom:16px;
+}
+.lock-input-icon{
+    position:absolute;
+    left:14px;
+    font-size:16px;
+    color:#86efac;
+    pointer-events:none;
+}
+.lock-input-wrap input{
+    width:100%;
+    padding:14px 44px 14px 42px;
+    border-radius:12px;
+    border:1.5px solid rgba(74,222,128,0.35);
+    background:rgba(0,0,0,0.38);
+    color:#fff;
+    font-size:15px;
+    outline:none;
+    box-sizing:border-box;
+    transition:all 0.2s ease;
+}
+.lock-input-wrap input:focus{
+    border-color:#4ade80;
+    background:rgba(0,0,0,0.5);
+    box-shadow:0 0 0 3px rgba(74,222,128,0.25);
+}
+.btn-toggle-eye{
+    position:absolute;
+    right:12px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+    padding:4px;
+    color:#a3d9b5;
+    transition:opacity 0.15s;
+}
+.btn-toggle-eye:hover{
+    opacity:0.8;
+}
+.btn-unlock-site{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    background:linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+    border:1px solid rgba(255,255,255,0.25);
+    color:#fff;
+    font-size:15.5px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 6px 20px rgba(34,197,94,0.35);
+    transition:all 0.2s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+.btn-unlock-site:hover{
+    background:linear-gradient(135deg, #16a34a 0%, #166534 100%);
+    transform:translateY(-1px);
+    box-shadow:0 8px 24px rgba(34,197,94,0.45);
+}
+.btn-unlock-site:active{
+    transform:translateY(0);
+}
+.lock-remember-wrap{
+    margin-top:14px;
+    font-size:12.5px;
+    color:#a3d9b5;
+    text-align:left;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+.lock-remember-wrap label{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+}
+.lock-remember-wrap input[type="checkbox"]{
+    accent-color:#22c55e;
+    cursor:pointer;
+}
+.lock-footer{
+    margin-top:24px;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.1);
+    font-size:11.5px;
+    color:#86efac;
+    opacity:0.8;
+}
+.btn-lock-site-pill{
+    background:rgba(239,68,68,0.18);
+    border:1px solid rgba(239,68,68,0.35);
+    color:#fca5a5;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    transition:all 0.15s ease;
+}
+.btn-lock-site-pill:hover{
+    background:#dc2626;
+    color:#fff;
+}
+
+.btn-admin-auth{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.22);
+    color:#d1fae5;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:all 0.2s ease;
+}
+.btn-admin-auth:hover{
+    background:rgba(34,197,94,0.22);
+    border-color:#4ade80;
+    color:#fff;
+    transform:translateY(-1px);
+}
+.admin-auth-group{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(0,0,0,0.28);
+    border:1px solid rgba(74,222,128,0.3);
+    padding:3px 8px;
+    border-radius:24px;
+}
+.admin-active-pill{
+    font-size:12px;
+    font-weight:700;
+    color:#4ade80;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:2px 6px;
+}
+.btn-admin-panel{
+    background:#15803d;
+    border:1px solid rgba(255,255,255,0.2);
+    color:#fff;
+    padding:4px 10px;
+    border-radius:14px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.15s ease;
+}
+.btn-admin-panel:hover{
+    background:#166534;
+}
+.btn-admin-logout{
+    background:rgba(239,68,68,0.2);
+    border:1px solid rgba(239,68,68,0.35);
+    color:#fca5a5;
+    padding:3px 8px;
+    border-radius:14px;
+    font-size:11.5px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:all 0.15s ease;
+}
+.btn-admin-logout:hover{
+    background:#dc2626;
+    color:#fff;
+}
+.btn-manage-catalog{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.22);
+    color:#a7f3d0;
+    padding:7px 12px;
+    border-radius:7px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:all 0.15s ease;
+}
+.btn-manage-catalog:hover{
+    background:rgba(34,197,94,0.25);
+    border-color:#4ade80;
+    color:#fff;
+}
+
+/* Modal Backdrops & Dialogs */
+.modal-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(2,12,6,0.76);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    animation:modalFadeIn 0.2s ease-out;
+}
+@keyframes modalFadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+.modal-dialog{
+    background:linear-gradient(170deg, #133821 0%, #0c2315 100%);
+    border:1px solid rgba(74,222,128,0.3);
+    border-radius:16px;
+    box-shadow:0 24px 60px rgba(0,0,0,0.65);
+    color:#fff;
+    width:100%;
+    max-height:92vh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    animation:dialogSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes dialogSlideUp{
+    from{transform:translateY(20px) scale(0.97); opacity:0;}
+    to{transform:translateY(0) scale(1); opacity:1;}
+}
+.modal-sm{max-width:440px;}
+.modal-xl{max-width:980px;}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 24px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    background:rgba(0,0,0,0.2);
+}
+.modal-title-wrap{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.modal-title-icon{
+    font-size:24px;
+    line-height:1;
+}
+.modal-title-wrap h3{
+    margin:0;
+    font-size:18px;
+    font-weight:700;
+    color:#ffffff;
+}
+.modal-subtitle{
+    font-size:12.5px;
+    color:#86efac;
+    display:block;
+    margin-top:2px;
+}
+.modal-header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.btn-header-pill{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    color:#d1fae5;
+    padding:5px 12px;
+    border-radius:16px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.15s ease;
+}
+.btn-header-pill:hover{
+    background:rgba(34,197,94,0.25);
+    color:#fff;
+}
+.modal-close{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    color:#d1fae5;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px;
+    transition:all 0.15s ease;
+}
+.modal-close:hover{
+    background:#dc2626;
+    border-color:#dc2626;
+    color:#fff;
+}
+
+.modal-body{
+    padding:20px 24px;
+    overflow-y:auto;
+    flex:1;
+}
+.modal-desc{
+    margin:0 0 16px 0;
+    font-size:13.5px;
+    color:#a3d9b5;
+    line-height:1.45;
+}
+.admin-input-group{
+    margin-bottom:14px;
+}
+.admin-input-group label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:#c4ebd0;
+    margin-bottom:6px;
+}
+.admin-login-error{
+    background:rgba(239,68,68,0.2);
+    border:1px solid rgba(239,68,68,0.4);
+    color:#fca5a5;
+    padding:8px 12px;
+    border-radius:6px;
+    font-size:13px;
+    margin-bottom:12px;
+}
+.admin-credentials-hint{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:12.5px;
+    color:#86efac;
+    margin-top:14px;
+}
+
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:10px;
+    padding:16px 24px;
+    border-top:1px solid rgba(255,255,255,0.12);
+    background:rgba(0,0,0,0.2);
+}
+.catalog-modal-footer{
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+.footer-left-tools{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+.btn-tool-outline{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18);
+    color:#d1fae5;
+    padding:7px 12px;
+    border-radius:7px;
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.15s ease;
+}
+.btn-tool-outline:hover{
+    background:rgba(255,255,255,0.15);
+    border-color:rgba(255,255,255,0.3);
+    color:#fff;
+}
+.btn-modal-cancel{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.2);
+    color:#d1fae5;
+    padding:9px 18px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:13.5px;
+    cursor:pointer;
+    transition:all 0.15s ease;
+}
+.btn-modal-cancel:hover{
+    background:rgba(255,255,255,0.08);
+    color:#fff;
+}
+.btn-modal-primary{
+    background:#16a34a;
+    border:1px solid rgba(255,255,255,0.25);
+    color:#fff;
+    padding:9px 20px;
+    border-radius:8px;
+    font-weight:700;
+    font-size:13.5px;
+    cursor:pointer;
+    transition:all 0.15s ease;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+.btn-modal-primary:hover{
+    background:#15803d;
+    transform:translateY(-1px);
+}
+
+/* Catalog Top Bar */
+.catalog-top-bar{
+    display:grid;
+    grid-template-columns:1fr 200px auto;
+    gap:12px;
+    margin-bottom:16px;
+    align-items:center;
+}
+.catalog-search-wrap{
+    position:relative;
+}
+.search-icon{
+    position:absolute;
+    left:11px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:14px;
+    pointer-events:none;
+    opacity:0.7;
+}
+.catalog-search-wrap input{
+    padding-left:34px;
+}
+.btn-toggle-add-form{
+    background:#15803d;
+    border:1px solid rgba(255,255,255,0.2);
+    color:#fff;
+    padding:9px 16px;
+    border-radius:8px;
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:all 0.15s ease;
+}
+.btn-toggle-add-form:hover{
+    background:#166534;
+}
+
+/* Catalog Form Card (Add/Edit) */
+.catalog-form-card{
+    background:rgba(0,0,0,0.32);
+    border:1.5px solid rgba(74,222,128,0.35);
+    border-radius:12px;
+    padding:16px 20px;
+    margin-bottom:18px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);
+    animation:cardSlideDown 0.2s ease-out;
+}
+@keyframes cardSlideDown{
+    from{opacity:0; transform:translateY(-8px);}
+    to{opacity:1; transform:translateY(0);}
+}
+.form-card-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    font-weight:700;
+    color:#86efac;
+    margin-bottom:14px;
+    padding-bottom:8px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.form-card-close{
+    cursor:pointer;
+    opacity:0.7;
+    font-size:15px;
+}
+.form-card-close:hover{opacity:1; color:#f87171;}
+.catalog-form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+.catalog-form-grid .span-2{
+    grid-column:span 2;
+}
+.catalog-form-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:14px;
+}
+.btn-save-catalog-item{
+    background:#16a34a;
+    color:#fff;
+    border:0;
+    padding:8px 18px;
+    border-radius:7px;
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+}
+.btn-save-catalog-item:hover{background:#15803d;}
+.btn-cancel-edit{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.2);
+    color:#d1fae5;
+    padding:8px 14px;
+    border-radius:7px;
+    font-weight:600;
+    font-size:13px;
+    cursor:pointer;
+}
+
+/* Catalog Items Table */
+.catalog-table-container{
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:10px;
+    overflow:hidden;
+    max-height:360px;
+    overflow-y:auto;
+    background:rgba(0,0,0,0.25);
+}
+.catalog-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+    text-align:left;
+}
+.catalog-table thead{
+    position:sticky;
+    top:0;
+    background:#0d2817;
+    z-index:2;
+}
+.catalog-table th{
+    padding:10px 12px;
+    font-weight:700;
+    color:#86efac;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    text-transform:uppercase;
+    font-size:11.5px;
+    letter-spacing:0.5px;
+}
+.catalog-table td{
+    padding:9px 12px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    color:#f3f4f6;
+    vertical-align:middle;
+}
+.catalog-table tbody tr:hover{
+    background:rgba(255,255,255,0.05);
+}
+.cat-badge{
+    background:rgba(34,197,94,0.15);
+    border:1px solid rgba(74,222,128,0.3);
+    color:#86efac;
+    padding:3px 8px;
+    border-radius:12px;
+    font-size:11px;
+    font-weight:600;
+    display:inline-block;
+}
+.item-unit-tag{
+    font-size:11.5px;
+    color:#9ca3af;
+    margin-left:4px;
+}
+.table-actions-cell{
+    display:flex;
+    gap:6px;
+    justify-content:center;
+}
+.btn-action-edit{
+    background:#2563eb;
+    color:#fff;
+    border:0;
+    border-radius:5px;
+    padding:5px 9px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+}
+.btn-action-edit:hover{background:#1d4ed8;}
+.btn-action-del{
+    background:#dc2626;
+    color:#fff;
+    border:0;
+    border-radius:5px;
+    padding:5px 9px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+}
+.btn-action-del:hover{background:#b91c1c;}
+
+/* Toast Notification */
+.app-toast{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    background:#15803d;
+    color:#fff;
+    padding:12px 20px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    z-index:99999;
+    display:none;
+    align-items:center;
+    gap:8px;
+    animation:toastSlideIn 0.25s ease-out;
+}
+@keyframes toastSlideIn{
+    from{transform:translateY(16px); opacity:0;}
+    to{transform:translateY(0); opacity:1;}
+}
+.app-toast.toast-error{
+    background:#dc2626;
+}
+
+/* ================= PREVIEW BANNER ================= */
+.preview-banner{
+    display:none;
+}
+
+/* ================= SCREEN VS PRINT VISIBILITY ================= */
+@media screen{
+    /* HIDE TEMPLATE PAGES ON SCREEN BY DEFAULT */
+    .page{
+        display:none !important;
+    }
+
+    /* SHOW PAGES ONLY WHEN USER CLICKS "PREVIEW QUOTATION" */
+    body.show-preview .page{
+        display:block !important;
+        margin:30px auto;
+        box-shadow:0 14px 45px rgba(0,0,0,0.22);
+    }
+    body.show-preview .preview-banner{
+        display:flex;
+        max-width:1160px;
+        margin:20px auto 25px;
+        padding:14px 20px;
+        background:#e8f5e9;
+        border:1px solid #81c784;
+        border-radius:10px;
+        color:#1b5e20;
+        font-family:inherit;
+        font-size:14.5px;
+        align-items:center;
+        justify-content:space-between;
+        box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    }
+}
+
+
+/* ================= COMPLETE MOBILE & TABLET RESPONSIVE STYLES ================= */
+@media screen and (max-width: 860px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        -webkit-text-size-adjust: 100% !important;
+    }
+    .app {
+        margin: 8px auto 24px !important;
+        padding: 0 8px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    .toolbar {
+        border-radius: 14px !important;
+        padding: 14px 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Toolbar Header */
+    .toolbar-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        padding-bottom: 12px !important;
+        margin-bottom: 14px !important;
+    }
+    .header-branding {
+        gap: 10px !important;
+    }
+    .header-icon {
+        font-size: 24px !important;
+    }
+    .toolbar-header h2 {
+        font-size: 17px !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+    }
+    .header-subtitle {
+        font-size: 11.5px !important;
+        line-height: 1.3 !important;
+    }
+    .header-status {
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 6px !important;
+    }
+    .btn-install-app, .btn-history-pill, .header-badge, .btn-lock-site-pill, .btn-admin-auth {
+        font-size: 11.5px !important;
+        padding: 5px 9px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Cards Grid: 1 Clean Column on Mobile */
+    .cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        margin-bottom: 12px !important;
+    }
+    .form-card {
+        padding: 12px 10px !important;
+        border-radius: 12px !important;
+        box-sizing: border-box !important;
+    }
+    .card-heading {
+        margin-bottom: 10px !important;
+        padding-bottom: 8px !important;
+    }
+    .card-heading h3 {
+        font-size: 14.5px !important;
+    }
+    .subgrid-2 {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    .form-group label {
+        font-size: 12.5px !important;
+        margin-bottom: 4px !important;
+    }
+    input, select, textarea {
+        font-size: 14.5px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Payment Terms & Terms Cards */
+    .payment-header-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+    .preset-pill-group {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    .preset-btn {
+        padding: 5px 9px !important;
+        font-size: 11px !important;
+    }
+    .preset-label {
+        display: none !important;
+    }
+    .terms-card textarea {
+        font-size: 13px !important;
+    }
+
+    /* Items Section & Header */
+    .items-section {
+        margin-top: 12px !important;
+        padding: 12px 10px !important;
+        border-radius: 12px !important;
+        box-sizing: border-box !important;
+    }
+    .items-header-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        margin-bottom: 12px !important;
+    }
+    .items-header-actions {
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+    .quick-add-wrap {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+    }
+    .quick-add-wrap select {
+        width: 100% !important;
+        font-size: 13px !important;
+        padding: 8px 10px !important;
+    }
+    .btn-quick-add-blank, .btn-manage-catalog {
+        flex: 1 !important;
+        font-size: 11.5px !important;
+        padding: 7px 6px !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    /* Desktop Table Header Hidden on Mobile */
+    .item-table-header {
+        display: none !important;
+    }
+
+    /* Mobile Item Card Layout (Zero Horizontal Overflow, 100% Mobile Friendly) */
+    .item-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        gap: 8px !important;
+        padding: 12px 10px !important;
+        margin-bottom: 12px !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 12px !important;
+        box-sizing: border-box !important;
+    }
+    .col-sno {
+        grid-column: 1 / span 2 !important;
+        grid-row: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        justify-content: flex-start !important;
+    }
+    .sno-badge {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 11.5px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .col-sno::after {
+        content: "Item Details";
+        font-size: 12px;
+        font-weight: 600;
+        color: #a3d9b5;
+        letter-spacing: 0.3px;
+    }
+    .col-action {
+        grid-column: 3 !important;
+        grid-row: 1 !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+    }
+    .btn-remove-row {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 8px !important;
+    }
+    .col-desc {
+        grid-column: 1 / -1 !important;
+        grid-row: 2 !important;
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    .desc-combo-box {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    .desc-select-dropdown {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        font-size: 13.5px !important;
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
+    }
+    .row-desc-input {
+        width: 100% !important;
+        min-width: 0 !important;
+        font-size: 14px !important;
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
+    }
+    .col-qty {
+        grid-column: 1 !important;
+        grid-row: 3 !important;
+        min-width: 0 !important;
+    }
+    .col-qty::before {
+        content: "Quantity";
+        display: block;
+        font-size: 10.5px;
+        color: #a3d9b5;
+        font-weight: 600;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .col-qty input {
+        width: 100% !important;
+        font-size: 14px !important;
+        padding: 8px 4px !important;
+        text-align: center !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
+    }
+    .col-price {
+        grid-column: 2 !important;
+        grid-row: 3 !important;
+        min-width: 0 !important;
+    }
+    .col-price::before {
+        content: "Price (₹)";
+        display: block;
+        font-size: 10.5px;
+        color: #a3d9b5;
+        font-weight: 600;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .price-input-wrap {
+        width: 100% !important;
+        position: relative !important;
+    }
+    .col-price input {
+        width: 100% !important;
+        font-size: 14px !important;
+        padding: 8px 4px 8px 18px !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
+    }
+    .col-total {
+        grid-column: 3 !important;
+        grid-row: 3 !important;
+        min-width: 0 !important;
+    }
+    .col-total::before {
+        content: "Total (₹)";
+        display: block;
+        font-size: 10.5px;
+        color: #a3d9b5;
+        font-weight: 600;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: right;
+    }
+    .total-display-cell {
+        width: 100% !important;
+        padding: 7px 6px !important;
+        font-size: 13px !important;
+        justify-content: flex-end !important;
+        box-sizing: border-box !important;
+        border-radius: 8px !important;
+        min-height: 38px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    /* Grand Total Summary Card */
+    .total-summary-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        padding: 12px 12px !important;
+        box-sizing: border-box !important;
+    }
+    .total-summary-card .summary-right {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: baseline !important;
+    }
+    .total-summary-card .value {
+        font-size: 22px !important;
+    }
+
+    /* Mobile Buttons Bar Grid */
+    .button-bar {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin-top: 12px !important;
+    }
+    .btn-group-left {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+    .btn-group-right {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+    .btn-group-right .btn:last-child {
+        grid-column: span 2 !important;
+    }
+    .btn {
+        width: 100% !important;
+        min-height: 44px !important;
+        padding: 10px 8px !important;
+        font-size: 13px !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Modals & Dialogs on Mobile */
+    .modal-backdrop {
+        padding: 8px !important;
+    }
+    .modal-dialog {
+        max-width: 100% !important;
+        width: 100% !important;
+        max-height: 94vh !important;
+        border-radius: 14px !important;
+        margin: auto !important;
+    }
+    .modal-header {
+        padding: 12px 14px !important;
+    }
+    .modal-body {
+        padding: 12px 10px !important;
+        overflow-y: auto !important;
+    }
+    .modal-footer {
+        padding: 10px 12px !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+    .catalog-modal-footer {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    .footer-left-tools, .footer-right-tools {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        width: 100% !important;
+    }
+    .footer-right-tools .btn-modal-primary {
+        width: 100% !important;
+    }
+    .catalog-toolbar-row {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+    .catalog-search-wrap, .catalog-category-filter, .btn-toggle-add-form {
+        width: 100% !important;
+    }
+    .catalog-form-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .catalog-form-grid .span-2 {
+        grid-column: auto !important;
+    }
+    .catalog-table-container {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .catalog-table {
+        min-width: 500px !important;
+    }
+
+    /* Lock Screen on Mobile */
+    .lock-card {
+        width: calc(100% - 24px) !important;
+        max-width: 380px !important;
+        padding: 24px 18px 20px !important;
+        border-radius: 16px !important;
+        margin: 20px auto !important;
+        box-sizing: border-box !important;
+    }
+    .lock-brand h2 {
+        font-size: 18px !important;
+    }
+    .lock-subtitle {
+        font-size: 12px !important;
+        margin-bottom: 16px !important;
+    }
+    .btn-unlock-site {
+        padding: 12px !important;
+        font-size: 14.5px !important;
+    }
+
+    /* Document Preview on Mobile */
+    #quotationPagesContainer {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 20px !important;
+    }
+    body.show-preview .page {
+        margin: 15px auto !important;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.4) !important;
+    }
+    body.show-preview .preview-banner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        font-size: 13px !important;
+        margin: 10px 8px 14px !important;
+    }
+    body.show-preview .preview-banner button {
+        align-self: flex-end !important;
+    }
+}
+
+/* ================= EXACT A4 SHEET STYLES (CALIBRATED ZERO-SHRINK RATIO) ================= */
+.page{
+    width:210mm !important;
+    height:296.5mm !important;
+    min-height:296.5mm !important;
+    max-height:296.5mm !important;
+    margin:18px auto;
+    background:#fff;
+    position:relative !important;
+    padding:13mm 14mm 14mm 14mm !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+    page-break-after:always;
+    page-break-inside:avoid;
+    break-after:page;
+    break-inside:avoid;
+    font-family:Georgia, "Times New Roman", serif;
+    color:#111;
+}
+.page:last-child{
+    page-break-after:auto;
+    break-after:auto;
+}
+
+/* Outer & Inner Border - Fits inside page with zero overflow */
+.border{
+    position:absolute;
+    inset:6.5mm;
+    border:2px solid #33261f;
+    border-radius:14px;
+    pointer-events:none;
+}
+.border::after{
+    content:"";
+    position:absolute;
+    inset:2.2mm;
+    border:1px solid #7c685b;
+    border-radius:10px;
+    pointer-events:none;
+}
+
+.watermark{
+    position:absolute;
+    width:360px;
+    opacity:.045;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+    pointer-events:none;
+}
+
+/* ================= PAGE 1 (COVER LETTER) ENLARGED & BALANCED ================= */
+.page-1-content{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    box-sizing:border-box;
+    position:relative;
+    z-index:2;
+}
+.first-page-logo{
+    display:block;
+    width:66mm;
+    max-height:35mm;
+    object-fit:contain;
+    margin:2mm auto 4mm;
+}
+.company-contact{
+    display:flex;
+    justify-content:center;
+    gap:22px;
+    flex-wrap:wrap;
+    font-family:Arial, sans-serif;
+    font-size:15.5px;
+    margin-bottom:6mm;
+    color:#222;
+}
+.title{
+    text-align:center;
+    font-family:Arial, sans-serif;
+    font-size:26px;
+    font-weight:900;
+    text-decoration:underline;
+    margin:2mm 0 7mm;
+    letter-spacing:2px;
+}
+.top-info{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin:0 4mm 8mm;
+    font-size:18px;
+    line-height:1.65;
+}
+.to-box{line-height:1.65; max-width:125mm;}
+.date-box{text-align:right; white-space:nowrap;}
+.intro{
+    font-size:17.5px;
+    line-height:1.8;
+    margin:0 4mm;
+}
+.intro p{margin:0 0 18px;}
+.thank{
+    text-align:center;
+    font-weight:bold;
+    font-size:24px;
+    margin:24px 0 0;
+    padding-bottom:0;
+}
+
+/* ================= PAGE 2 (COST ESTIMATION TABLE - 16 ROWS / PAGE) ================= */
+.page-table-content{
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    height:100%;
+    box-sizing:border-box;
+    padding-top:4mm;
+    position:relative;
+    z-index:2;
+}
+.section-title{
+    text-align:center;
+    font-family:Arial, sans-serif;
+    font-size:22px;
+    font-weight:900;
+    text-decoration:underline;
+    margin:0 0 6mm;
+    letter-spacing:1px;
+}
+.quote-table{
+    width:98%;
+    max-width:182mm;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    margin-top:0;
+    margin-bottom:0;
+    border-collapse:collapse;
+    table-layout:fixed;
+    font-size:13.5px;
+}
+.quote-table th{
+    background:#f4f7f4;
+    border:1.5px solid #222;
+    padding:8px 6px;
+    font-size:14px;
+    font-weight:bold;
+    text-align:center;
+}
+.quote-table td{
+    border:1px solid #c0c0c0;
+    padding:6.5px 6px;
+    font-size:13.5px;
+    text-align:center;
+    vertical-align:middle;
+    word-break:break-word;
+    line-height:1.3;
+}
+.quote-table th:nth-child(1),
+.quote-table td:nth-child(1){
+    width:9%;
+    text-align:center;
+}
+.quote-table th:nth-child(2),
+.quote-table td:nth-child(2){
+    width:45%;
+    text-align:left;
+    padding-left:8px;
+}
+.quote-table th:nth-child(3),
+.quote-table td:nth-child(3){
+    width:14%;
+    text-align:center;
+}
+.quote-table th:nth-child(4),
+.quote-table td:nth-child(4){
+    width:16%;
+    text-align:right;
+    padding-right:8px;
+}
+.quote-table th:nth-child(5),
+.quote-table td:nth-child(5){
+    width:16%;
+    text-align:right;
+    padding-right:8px;
+}
+.quote-table tfoot td{
+    border:1.5px solid #222;
+    padding:8px;
+    font-weight:bold;
+    font-size:14.5px;
+}
+
+/* ================= PAGE 3 (TERMS & SIGNATURE) ENLARGED & BALANCED ================= */
+.page-terms-content{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    box-sizing:border-box;
+    position:relative;
+    z-index:2;
+}
+.spec-card{
+    background:#f9fbf9;
+    border:1.5px solid #33261f;
+    border-radius:8px;
+    padding:11px 16px;
+    margin:0 2mm 6mm;
+}
+.spec-card-title{
+    font-size:16.5px;
+    font-weight:bold;
+    text-decoration:underline;
+    margin-bottom:8px;
+    text-align:center;
+    font-family:Arial, sans-serif;
+    letter-spacing:0.5px;
+}
+.spec-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px 18px;
+    font-size:14.5px;
+    line-height:1.55;
+}
+.spec-item{display:flex; gap:8px;}
+.spec-lbl{font-weight:bold; color:#1b432a; min-width:115px;}
+.spec-val{color:#222;}
+.terms-header{
+    text-align:center;
+    font-size:21px;
+    font-weight:900;
+    text-decoration:underline;
+    margin:0 0 4.5mm;
+    font-family:Arial, sans-serif;
+    letter-spacing:1px;
+}
+.terms{
+    font-size:14.5px;
+    line-height:1.55;
+    margin:0 2mm 6mm;
+}
+.terms ul{
+    margin:0;
+    padding-left:22px;
+}
+.terms li{
+    margin-bottom:6px;
+}
+.payment-title{
+    text-align:center;
+    font-size:19px;
+    font-weight:900;
+    text-decoration:underline;
+    margin:0 0 4mm;
+    font-family:Arial, sans-serif;
+    letter-spacing:1px;
+}
+.payment{
+    font-size:15px;
+    line-height:1.6;
+    margin:0 2mm 6mm;
+}
+.payment ul{
+    margin:0;
+    padding-left:22px;
+}
+.payment li{
+    margin-bottom:6px;
+}
+.signature{
+    margin:auto 4mm 2mm auto;
+    text-align:center;
+    font-size:15.5px;
+}
+.signature-space{height:18mm;}
+.signature-line{margin-bottom:5px; letter-spacing:1.5px; color:#333;}
+
+/* ================= EXACT ZERO-SHRINK PRINT MEDIA RULES ================= */
+@media print{
+    @page{
+        size:A4 portrait;
+        margin:0mm;
+    }
+    html, body{
+        width:100% !important;
+        height:auto !important;
+        min-height:100% !important;
+        margin:0 !important;
+        padding:0 !important;
+        background:#fff !important;
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+    .no-print, .preview-banner{
+        display:none !important;
+    }
+    .page{
+        display:block !important;
+        margin:0 !important;
+        width:210mm !important;
+        height:296.5mm !important;
+        min-height:296.5mm !important;
+        max-height:296.5mm !important;
+        padding:13mm 14mm 14mm 14mm !important;
+        box-sizing:border-box !important;
+        box-shadow:none !important;
+        page-break-before:auto !important;
+        page-break-after:always !important;
+        page-break-inside:avoid !important;
+        break-after:page !important;
+        break-inside:avoid !important;
+        overflow:hidden !important;
+    }
+    .page:last-child{
+        page-break-after:auto !important;
+        break-after:auto !important;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- OVERALL SITE ACCESS GATEKEEPER / LOCK SCREEN -->
+<div id="siteLockScreen" class="site-lock-screen no-print">
+    <div class="lock-card">
+        <div class="lock-brand">
+            <img src="logo.png" alt="Green Vistaa Logo" class="lock-logo">
+            <h2>Green Vistaa Landscapes</h2>
+            <p class="lock-subtitle">Quotation &amp; Estimator Dashboard</p>
+        </div>
+        <div class="lock-body">
+            <div id="siteLockError" class="lock-error" style="display:none;"></div>
+            <div class="lock-input-wrap">
+                <span class="lock-input-icon">🔑</span>
+                <input type="password" id="siteAccessPassword" placeholder="Enter Access Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')unlockSite()">
+                <button type="button" class="btn-toggle-eye" onclick="toggleSitePasswordVisibility()" title="Show/Hide Password">👁️</button>
+            </div>
+            <button type="button" class="btn-unlock-site" onclick="unlockSite()">
+                <span>🔓 Unlock Dashboard</span>
+            </button>
+            <div class="lock-remember-wrap">
+                <label>
+                    <input type="checkbox" id="rememberDeviceCheck"> Keep me signed in on this device
+                </label>
+            </div>
+        </div>
+        <div class="lock-footer">
+            <span>🛡️ Protected System &bull; Green Vistaa Landscaping Coimbatore</span>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- FORM GENERATOR UI (VISIBLE ON SCREEN) -->
+<div class="app no-print" id="mainAppContainer">
+    <div class="toolbar">
+        <header class="toolbar-header">
+            <div class="header-branding">
+                <span class="header-icon">🌿</span>
+                <div>
+                    <h2>Green Vistaa Quotation Generator</h2>
+                    <p class="header-subtitle">Professional Landscape &amp; Garden Architecture Estimator</p>
+                </div>
+            </div>
+            <div class="header-status" style="display:flex;align-items:center;gap:10px;">
+                <button type="button" id="btnInstallApp" class="btn-install-app" onclick="triggerAppInstall()"><span class="auth-icon">📲</span> Install App</button>
+                <button type="button" class="btn-history-pill" onclick="openHistoryModal()" title="View Saved Quotation History &amp; Drafts"><span>📁</span> Saved Quotes <span class="history-badge" id="historyCountBadge">0</span></button>
+                <span class="header-badge"><span class="badge-dot"></span> Quotation System</span>
+                <div id="adminHeaderAuthWrap"></div>
+            </div>
+        </header>
+
+        <!-- TOP SECTIONS: 2 BALANCED SYMMETRICAL COLUMNS -->
+        <div class="cards-grid">
+            <!-- CARD 1: CUSTOMER DETAILS -->
+            <div class="form-card">
+                <div class="card-heading">
+                    <span class="card-icon">👤</span>
+                    <h3>Customer Information</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name <span class="req">*</span></label>
+                        <input id="customerName" placeholder="Enter customer name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Customer Phone <span class="req">*</span></label>
+                        <div class="input-with-prefix">
+                            <span class="input-prefix">🇮🇳 +91</span>
+                            <input id="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile number">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerAddress">Customer Address</label>
+                        <textarea id="customerAddress" rows="3" placeholder="Site or billing address..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2: PROJECT SPECIFICATIONS -->
+            <div class="form-card">
+                <div class="card-heading">
+                    <span class="card-icon">🌿</span>
+                    <h3>Project Specifications</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="projectName">Project Scope / Name</label>
+                        <select id="projectName">
+                            <option value="Garden Design">Garden Design</option>
+                            <option value="Landscaping">Landscaping</option>
+                            <option value="Lawn Maintenance">Lawn Maintenance</option>
+                            <option value="Terrace Garden">Terrace Garden</option>
+                            <option value="Vertical Garden">Vertical Garden</option>
+                            <option value="Irrigation Work">Irrigation Work</option>
+                            <option value="Garden Renovation">Garden Renovation</option>
+                            <option value="Farmhouse Landscaping">Farmhouse Landscaping</option>
+                            <option value="Hardscaping &amp; Stonework">Hardscaping &amp; Stonework</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                            <label for="projectLocation" style="margin-bottom:0;">Project Location</label>
+                            <button type="button" class="btn-subtle-link" onclick="openLocationsManagerModal()" title="Manage or Paste Area List from Notepad" style="background:none; border:none; color:#86efac; font-size:12px; cursor:pointer; text-decoration:underline; padding:0;">📍 Manage Areas List</button>
+                        </div>
+                        <input id="projectLocation" list="projectLocationsDatalist" placeholder="Type area name (e.g. Thudiyalur, Saravanampatti, RS Puram, Peelamedu...)" autocomplete="off" style="width:100%;">
+                        <datalist id="projectLocationsDatalist">
+                            <option value="Thudiyalur"></option>
+                            <option value="Cheran Ma Nagar"></option>
+                            <option value="Saravanampatti"></option>
+                            <option value="Gandhipuram"></option>
+                            <option value="RS Puram"></option>
+                            <option value="Saibaba Colony"></option>
+                            <option value="Peelamedu"></option>
+                            <option value="Ganapathy"></option>
+                            <option value="Vadavalli"></option>
+                            <option value="Singanallur"></option>
+                            <option value="Ramanathapuram"></option>
+                            <option value="Town Hall"></option>
+                            <option value="Ukkadam"></option>
+                            <option value="Race Course"></option>
+                            <option value="Podanur"></option>
+                            <option value="Vellalore"></option>
+                            <option value="Kuniyamuthur"></option>
+                            <option value="Kovaipudur"></option>
+                            <option value="Sundarapuram"></option>
+                            <option value="Kurichi"></option>
+                            <option value="Eachanari"></option>
+                            <option value="Perur"></option>
+                            <option value="Selvapuram"></option>
+                            <option value="Kavundampalayam"></option>
+                            <option value="Kanuvai"></option>
+                            <option value="Thadagam"></option>
+                            <option value="Pannimadai"></option>
+                            <option value="Vellakinar"></option>
+                            <option value="NGGO Colony"></option>
+                            <option value="Chinnavedampatti"></option>
+                            <option value="Maniyakaranpalayam"></option>
+                            <option value="Nallampalayam"></option>
+                            <option value="Sivananda Colony"></option>
+                            <option value="Rathinapuri"></option>
+                            <option value="Tatabad"></option>
+                            <option value="Siddhapudur"></option>
+                            <option value="Ram Nagar"></option>
+                            <option value="Saibaba Mission"></option>
+                            <option value="TVS Nagar"></option>
+                            <option value="Edayarpalayam"></option>
+                            <option value="P.N. Pudur"></option>
+                            <option value="Veerakeralam"></option>
+                            <option value="Kalveerampalayam"></option>
+                            <option value="Marudhamalai"></option>
+                            <option value="Somayampalayam"></option>
+                            <option value="Vilankurichi"></option>
+                            <option value="Kalapatti"></option>
+                            <option value="Keeranatham"></option>
+                            <option value="Chinniyampalayam"></option>
+                            <option value="Neelambur"></option>
+                            <option value="SITRA"></option>
+                            <option value="Irugur"></option>
+                            <option value="Ondipudur"></option>
+                            <option value="Sulur"></option>
+                            <option value="Sowripalayam"></option>
+                            <option value="Uppilipalayam"></option>
+                            <option value="Puliakulam"></option>
+                            <option value="Nanjundapuram"></option>
+                            <option value="Trichy Road"></option>
+                            <option value="Avinashi Road"></option>
+                            <option value="Sathy Road"></option>
+                            <option value="Mettupalayam Road"></option>
+                            <option value="Thondamuthur"></option>
+                            <option value="Vedapatti"></option>
+                            <option value="Vellakinar Road"></option>
+                            <option value="KNG Pudur"></option>
+                            <option value="Subramaniampalayam"></option>
+                            <option value="Kurudampalayam"></option>
+                            <option value="Periyanaickenpalayam"></option>
+                            <option value="Narasimhanaickenpalayam"></option>
+                            <option value="Idigarai"></option>
+                            <option value="Karamadai"></option>
+                            <option value="Annur"></option>
+                            <option value="Kovilpalayam"></option>
+                            <option value="Athipalayam"></option>
+                            <option value="Vilankurichi Road"></option>
+                            <option value="Masakkalipalayam"></option>
+                            <option value="Hope College"></option>
+                            <option value="Lakshmi Mills"></option>
+                            <option value="Race Course Road"></option>
+                            <option value="Red Fields"></option>
+                            <option value="Ponnairajapuram"></option>
+                            <option value="Gopalapuram"></option>
+                            <option value="Sukrawar Pettai"></option>
+                            <option value="Oppanakara Street"></option>
+                            <option value="Big Bazaar Street"></option>
+                            <option value="Karumbukadai"></option>
+                            <option value="Athupalam"></option>
+                            <option value="BK Pudur"></option>
+                            <option value="Madukkarai"></option>
+                            <option value="Malumichampatti"></option>
+                            <option value="Othakalmandapam"></option>
+                            <option value="Ettimadai"></option>
+                            <option value="Myleripalayam"></option>
+                            <option value="Kovaipudur Pirivu"></option>
+                            <option value="Vadavalli Pirivu"></option>
+                            <option value="Thudiyalur Pirivu"></option>
+                            <option value="Cheran Nagar"></option>
+                            <option value="Gandhi Managar"></option>
+                            <option value="VKG Garden"></option>
+                            <option value="Vishwanathapuram"></option>
+                            <option value="Avarampalayam"></option>
+                            <option value="Chinnampalayam"></option>
+                            <option value="Chinthamanipudur"></option>
+                            <option value="GN Mills"></option>
+                            <option value="Subramaniapalayam"></option>
+                            <option value="Appanaickenpalayam"></option>
+                            <option value="Chinna Thadagam"></option>
+                            <option value="Periya Thadagam"></option>
+                            <option value="Veerapandi"></option>
+                            <option value="Kovilmedu"></option>
+                            <option value="Velandipalayam"></option>
+                            <option value="Press Colony"></option>
+                            <option value="Shanthi Medu"></option>
+                            <option value="Ganeshapuram"></option>
+                            <option value="Mullai Nagar"></option>
+                            <option value="Thennampalayam"></option>
+                            <option value="Pachapalayam"></option>
+                            <option value="Pooluvapatti"></option>
+                            <option value="Thoppampatti Pirivu"></option>
+                            <option value="Bommanampalayam"></option>
+                            <option value="Kuppanur"></option>
+                            <option value="Sundakkamuthur"></option>
+                            <option value="Sokkampudur"></option>
+                            <option value="Sugunapuram"></option>
+                            <option value="Chettipalayam"></option>
+                            <option value="Pattanam"></option>
+                            <option value="Vellanaipatti"></option>
+                            <option value="Kondayampalayam"></option>
+                            <option value="Vadamadurai"></option>
+                            <option value="Narasipuram"></option>
+                            <option value="Arasur"></option>
+                            <option value="Karumathampatti"></option>
+                            <option value="Pappampatti"></option>
+                            <option value="Kannampalayam"></option>
+                            <option value="Vagarayampalayam"></option>
+                            <option value="Kamachipuram"></option>
+                            <option value="Nachipalayam"></option>
+                            <option value="Karadivavi"></option>
+                            <option value="Kinathukadavu"></option>
+                            <option value="Madhampatti"></option>
+                            <option value="Kallapalayam"></option>
+                            <option value="Mylampatti"></option>
+                            <option value="Naranapuram"></option>
+                            <option value="Appanaickenpatti"></option>
+                            <option value="Kaduvettipalayam"></option>
+                            <option value="Semmandampalayam"></option>
+                            <option value="Samathur"></option>
+                            <option value="Devarayapuram"></option>
+                            <option value="Madvarayapuram"></option>
+                            <option value="Thennamanallur"></option>
+                            <option value="Ikkarai Boluvampatti"></option>
+                            <option value="Theethipalayam"></option>
+                            <option value="Perur Chettipalayam"></option>
+                            <option value="Alandurai"></option>
+                            <option value="Pooluvapatti Pirivu"></option>
+                            <option value="Kalampalayam"></option>
+                            <option value="Vedapatti Pirivu"></option>
+                            <option value="Selvapuram North"></option>
+                            <option value="Selvapuram South"></option>
+                            <option value="Telungupalayam"></option>
+                            <option value="Kallimadai"></option>
+                            <option value="Nanjundapuram Road"></option>
+                            <option value="Ramanathapuram Signal"></option>
+                            <option value="Sowripalayam Pirivu"></option>
+                            <option value="Pankaja Mills Road"></option>
+                            <option value="Varadharajapuram"></option>
+                            <option value="Singanallur Kamarajar Road"></option>
+                            <option value="Vasantha Nagar"></option>
+                            <option value="Meena Estate"></option>
+                            <option value="Nava India"></option>
+                            <option value="Peelamedu Pudur"></option>
+                            <option value="B.R. Puram"></option>
+                            <option value="Bharathi Colony"></option>
+                            <option value="Lakshmi Puram"></option>
+                            <option value="Indira Nagar"></option>
+                            <option value="Hope College Pirivu"></option>
+                            <option value="Goldwins"></option>
+                            <option value="Civil Aerodrome Post"></option>
+                            <option value="Nehru Nagar"></option>
+                            <option value="Ezhil Nagar"></option>
+                            <option value="Cheran Nagar Extension"></option>
+                            <option value="Sivanandhapuram"></option>
+                            <option value="Saravanampatti Thanneerpandal"></option>
+                            <option value="Viswasapuram"></option>
+                            <option value="Athipalayam Pirivu"></option>
+                            <option value="Vellakinar Pirivu"></option>
+                            <option value="Gounder Mills"></option>
+                            <option value="Thudiyalur Market"></option>
+                            <option value="NGGO Colony Extension"></option>
+                            <option value="Koundampalayam"></option>
+                            <option value="FCI Road"></option>
+                            <option value="Edayarpalayam Pirivu"></option>
+                            <option value="TVS Nagar Extension"></option>
+                            <option value="Kanuvai Pirivu"></option>
+                            <option value="Maruthamalai Adivaram"></option>
+                            <option value="Bharathiar University Area"></option>
+                            <option value="Poochiyur"></option>
+                            <option value="Kalikkanaickenpalayam"></option>
+                            <option value="Somayampalayam Pirivu"></option>
+                            <option value="Vadavalli Thirumurugan Nagar"></option>
+                            <option value="Veerakeralam Pirivu"></option>
+                            <option value="P.N. Pudur Extension"></option>
+                            <option value="Kovaipudur A Block"></option>
+                            <option value="Kovaipudur B Block"></option>
+                            <option value="Kuniyamuthur Palakkad Road"></option>
+                            <option value="Sundarapuram Athupalam"></option>
+                            <option value="Kurichi Housing Unit"></option>
+                            <option value="SIDCO Industrial Estate"></option>
+                            <option value="Eachanari Pirivu"></option>
+                            <option value="Podanur Chettipalayam Road"></option>
+                            <option value="Vellalore Pirivu"></option>
+                            <option value="Singanallur Uzhavar Sandhai Area"></option>
+                            <option value="Ondipudur Bus Stand Area"></option>
+                            <option value="Irugur Road"></option>
+                            <option value="Trichy Road Ramanathapuram"></option>
+                            <option value="Chinniyampalayam Pirivu"></option>
+                            <option value="Kalapatti Pirivu"></option>
+                            <option value="Neelambur Bypass Area"></option>
+                            <option value="Avinashi Road Airport Junction"></option>
+                            <option value="KNG Pudur Pirivu"></option>
+                            <option value="NGGO Colony Pirivu"></option>
+                            <option value="G.N. Mills Pirivu"></option>
+                            <option value="Cheran Ma Nagar Extension"></option>
+                            <option value="Sathy Road Saravanampatti"></option>
+                            <option value="Dr. Jaganathan Nagar"></option>
+                            <option value="Vellakinar Housing Unit"></option>
+                            <option value="Sreevatsa Garden"></option>
+                            <option value="Viswanathapuram"></option>
+                            <option value="Bharathi Park"></option>
+                            <option value="Saibaba Colony West"></option>
+                            <option value="Saibaba Colony East"></option>
+                            <option value="R.S. Puram West"></option>
+                            <option value="R.S. Puram East"></option>
+                            <option value="Sukrawarpet"></option>
+                            <option value="Town Hall Extension"></option>
+                            <option value="Ukkadam Perur Road"></option>
+                            <option value="Fort Area"></option>
+                            <option value="Variety Hall Road"></option>
+                            <option value="Selvapuram Pirivu"></option>
+                            <option value="Kottaimedu"></option>
+                            <option value="Aathupalam"></option>
+                            <option value="Karumbukkadai Extension"></option>
+                            <option value="Kuniyamuthur Housing Unit"></option>
+                            <option value="Sundarapuram Housing Unit"></option>
+                            <option value="Kurichi Pirivu"></option>
+                            <option value="SIDCO Post"></option>
+                            <option value="Eachanari Housing Unit"></option>
+                            <option value="Podanur Railway Colony"></option>
+                            <option value="Podanur Chettipalayam Pirivu"></option>
+                            <option value="Vellalore Housing Unit"></option>
+                            <option value="Pattanam Pudur"></option>
+                            <option value="Singanallur Vellalore Road"></option>
+                            <option value="SIHS Colony"></option>
+                            <option value="Nehru Nagar West"></option>
+                            <option value="Nehru Nagar East"></option>
+                            <option value="Goldwins Extension"></option>
+                            <option value="Chinniyampalayam Housing Area"></option>
+                            <option value="Kalapatti Housing Unit"></option>
+                            <option value="Vilankurichi Housing Area"></option>
+                            <option value="Saravanampatti Housing Unit"></option>
+                            <option value="Keeranatham IT Park Area"></option>
+                            <option value="Kovilpalayam Road"></option>
+                            <option value="Athipalayam Road"></option>
+                            <option value="Ganapathy Managar"></option>
+                            <option value="Ganapathy Pudur"></option>
+                            <option value="Sivanandhapuram Extension"></option>
+                            <option value="Nallampalayam Extension"></option>
+                            <option value="Rathinapuri Extension"></option>
+                            <option value="Tatabad Extension"></option>
+                            <option value="Ram Nagar Extension"></option>
+                            <option value="Siddhapudur Extension"></option>
+                            <option value="Puliakulam Housing Area"></option>
+                            <option value="Sowripalayam Extension"></option>
+                            <option value="Masakalipalayam Extension"></option>
+                            <option value="Uppilipalayam Housing Area"></option>
+                            <option value="Avarampalayam Extension"></option>
+                            <option value="Peelamedu Industrial Estate"></option>
+                            <option value="B.R. Puram Extension"></option>
+                            <option value="Lakshmi Mills Junction"></option>
+                        </datalist>
+                    </div>
+
+                    <div class="subgrid-2">
+                        <div class="form-group">
+                            <label for="completion">Completion Period</label>
+                            <input id="completion" value="15 to 20 days">
+                        </div>
+                        <div class="form-group">
+                            <label for="validity">Quotation Validity</label>
+                            <input id="validity" value="10 to 15 days">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAYMENT TERMS CARD -->
+        <div class="form-card payment-terms-card">
+            <div class="card-heading payment-header-row">
+                <div class="heading-left">
+                    <span class="card-icon">💳</span>
+                    <h3>Payment Terms &amp; Milestone Schedule</h3>
+                </div>
+                <div class="preset-pill-group">
+                    <span class="preset-label">Presets:</span>
+                    <button type="button" class="preset-btn" onclick="setPaymentPreset('std')">Standard (60k/30k/Bal)</button>
+                    <button type="button" class="preset-btn" onclick="setPaymentPreset('50-40-10')">50 / 40 / 10 %</button>
+                    <button type="button" class="preset-btn" onclick="setPaymentPreset('advance')">100% Advance</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <textarea id="paymentTerms" rows="3" placeholder="Payment terms...">Rs.60,000 advance at the time of order confirmation.
+Rs.30,000 at the time of material delivery.
+Balance Amount during the progress or completion of work.</textarea>
+            </div>
+        </div>
+
+                <!-- TERMS & CONDITIONS CARD (CUSTOMIZABLE PER QUOTATION & ADMIN CONTROL) -->
+        <div class="form-card terms-card" style="margin-bottom:16px;">
+            <div class="card-heading payment-header-row">
+                <div class="heading-left">
+                    <span class="card-icon">📜</span>
+                    <h3>Terms &amp; Conditions (Customizable for this Quotation)</h3>
+                </div>
+                <div class="preset-pill-group">
+                    <button type="button" class="preset-btn" onclick="resetTermsToMaster()" title="Reset to Master Company Terms">🔄 Reset to Defaults</button>
+                    <button type="button" class="preset-btn admin-only-btn" id="btnSaveMasterTerms" onclick="saveCurrentTermsAsMaster()" title="Save as Master Company Terms for all future quotations (Admin)">💾 Set as Master Terms</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <p style="margin:0 0 8px 0; font-size:12.5px; color:#a3d9b5;">Each line is rendered as an official bullet point on the final printed quotation page. Edit, add or delete clauses as required for this client.</p>
+                <textarea id="termsConditions" rows="5" placeholder="Enter quotation terms &amp; conditions (one clause per line)..." oninput="updateOutput()"></textarea>
+            </div>
+        </div>
+
+        <!-- ITEMS & COST ESTIMATION SECTION -->
+        <div class="items-section">
+            <div class="items-header-bar">
+                <div class="items-title-wrap">
+                    <div class="title-with-badge">
+                        <h3>📋 Items &amp; Cost Estimation</h3>
+                        <span class="items-count-badge" id="itemsCountBadge">1 Item</span>
+                    </div>
+                    <p class="items-helper">Select from the dropdown list or type any custom landscaping item</p>
+                </div>
+                <div class="items-header-actions">
+                    <div class="quick-add-wrap" title="Quickly add item from catalog">
+                        <select id="quickCatalogAdd" onchange="quickAddCatalogItem(this.value); this.selectedIndex=0;">
+                            <option value="" disabled selected>⚡ Quick Add Item ▾</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn-quick-add-blank" onclick="addItem()">+ Blank Row</button>
+                    <button type="button" class="btn-manage-catalog" onclick="handleManageItemsClick()" title="Item Control Management (Admin)">
+                        ⚙️ Items Control
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABLE HEADER -->
+            <div class="item-table-header">
+                <div class="th-col th-sno">S.No</div>
+                <div class="th-col th-desc">Item Description (Dropdown List / Type Custom)</div>
+                <div class="th-col th-qty">Quantity</div>
+                <div class="th-col th-price">Unit Price (₹)</div>
+                <div class="th-col th-total">Total (₹)</div>
+                <div class="th-col th-action">Remove</div>
+            </div>
+
+            <!-- ROWS CONTAINER -->
+            <div id="itemEditor"></div>
+
+            <!-- HTML5 DATALIST FOR AUTOCOMPLETE -->
+            <datalist id="landscapingItemsCatalog"></datalist>
+
+            <!-- TOTAL SUMMARY CARD -->
+            <div class="total-summary-card">
+                <div class="summary-left">
+                    <span class="summary-chip" id="summaryItemsText">1 Item in quotation</span>
+                    <span class="summary-sub">All prices in Indian Rupees (INR)</span>
+                </div>
+                <div class="summary-right">
+                    <span class="label">Grand Total:</span>
+                    <span class="currency-symbol">₹</span>
+                    <span class="value" id="formGrandTotal">0</span>
+                </div>
+            </div>
+
+            <!-- BUTTON BAR -->
+            <div class="button-bar">
+                <div class="btn-group-left">
+                    <button type="button" class="btn btn-green" onclick="addItem()">
+                        <span>➕ Add Item</span>
+                    </button>
+                    <button type="button" class="btn btn-red-subtle" onclick="deleteLastItem()" title="Delete last row">
+                        <span>🗑️ Delete Last</span>
+                    </button>
+                </div>
+
+                <div class="btn-group-right">
+                    <button type="button" class="btn btn-preview" id="previewBtn" onclick="togglePreview()">
+                        <span>👁️ Preview Quotation</span>
+                    </button>
+                    <button type="button" class="btn btn-amber" onclick="saveCurrentQuote(false)" title="Save quotation draft to history">
+                        <span>💾 Save Draft</span>
+                    </button>
+                    <button type="button" class="btn btn-blue" onclick="generatePDF()" title="Print or save as PDF">
+                        <span>📄 Print / PDF</span>
+                    </button>
+                    <button type="button" class="btn btn-wa" onclick="sendWhatsApp()" title="Share quotation via WhatsApp">
+                        <span>💬 WhatsApp</span>
+                    </button>
+                    <button type="button" class="btn btn-gray" onclick="newQuotation()" title="Start blank quotation">
+                        <span>🔄 New Quotation</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- OPTIONAL PREVIEW BANNER WHEN PREVIEW TOGGLED -->
+<div class="preview-banner no-print" id="previewBanner">
+    <span><strong>📄 Document Preview Mode:</strong> Below is how your official quotation will look when printed or saved as PDF.</span>
+    <button type="button" onclick="togglePreview()" style="padding:6px 12px;background:#1b5e20;color:#fff;border-radius:4px;font-size:12px;border:0;cursor:pointer;">Close Preview ✕</button>
+</div>
+
+<!-- ================= QUOTATION PAGES CONTAINER ================= -->
+<div id="quotationPagesContainer">
+
+    <!-- PAGE 1: COVER LETTER (FITS INSIDE MARGIN) -->
+    <section class="page" id="pageCover">
+        <div class="border"></div>
+        <img class="watermark" src="logo.png" alt="watermark">
+
+        <div class="content page-1-content">
+            <div class="page-top">
+                <img class="logo first-page-logo" src="logo.png" alt="Green Vistaa Logo">
+
+                <div class="company-contact">
+                    <span>📞 9345536955</span>
+                    <span>✉️ greenvistalandscapescbe@gmail.com</span>
+                    <span>📍 Coimbatore</span>
+                </div>
+
+                <div class="title">QUOTATION</div>
+
+                <div class="top-info">
+                    <div class="to-box">
+                        <b>To :</b><br>
+                        <span id="outCustomer">Customer Name</span><br>
+                        <span id="outAddress">Customer Address</span><br>
+                        Ph-<span id="outPhone">__________</span>
+                    </div>
+
+                    <div class="date-box">
+                        <b>DATE :</b> <span id="outDate"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro">
+                <p><b>Dear Sir/Madam,</b></p>
+
+                <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Thank you for choosing Green Vistaa Landscaping
+                    for your landscape requirements. We are pleased to present our
+                    proposal for transforming your space through thoughtfully designed
+                    and professionally executed landscaping solutions, including
+                    garden development, natural stone works, planting, and landscape
+                    maintenance.
+                </p>
+
+                <p>
+                    Our quotation outlines the proposed scope of work, material
+                    specifications, estimated timeline, and terms &amp; conditions for
+                    complete clarity. We focus on quality, aesthetics, functionality,
+                    and professional execution to create landscapes that are both
+                    beautiful and lasting.
+                </p>
+
+                <p>
+                    We look forward to bringing your vision to life and creating a
+                    distinctive outdoor space that adds value and character to your
+                    property.
+                </p>
+            </div>
+
+            <div class="thank">Thank You</div>
+        </div>
+    </section>
+
+    <!-- DYNAMIC PAGES: TABLE PAGES & ATTACHED SPEC/TERMS PAGE -->
+    <div id="dynamicPages"></div>
+
+</div>
+
+<script>
+// ================= LANDSCAPING CATALOG & ADMIN CONTROL SYSTEM =================
+var DEFAULT_CATALOG = [
+    {
+        category: "🌱 Lawns & Grass",
+        items: [
+            { name: "Mexican Grass Lawn Installation (Soil Prep, Levelling & Laying)", defaultPrice: 45, unit: "Sq.ft" },
+            { name: "Bermuda Grass Turf Supply & Laying", defaultPrice: 40, unit: "Sq.ft" },
+            { name: "Korean Carpet Grass Turf Installation", defaultPrice: 65, unit: "Sq.ft" },
+            { name: "Artificial Grass / Synthetic Turf (35mm All-Weather)", defaultPrice: 85, unit: "Sq.ft" },
+            { name: "Lawn Top Dressing, Organic Fertilizing & De-weeding", defaultPrice: 20, unit: "Sq.ft" },
+            { name: "Ground Preparation & Fine Earth Levelling for Lawn", defaultPrice: 15, unit: "Sq.ft" }
+        ]
+    },
+    {
+        category: "🌿 Plants, Shrubs & Hedges",
+        items: [
+            { name: "Assorted Ornamental Flowering Plants & Shrubs", defaultPrice: 150, unit: "Nos" },
+            { name: "Ficus Panda Hedge Plantation (Bushy, 1 ft Spacing)", defaultPrice: 180, unit: "Running Ft" },
+            { name: "Duranta Golden / Acalypha Border Hedge Plants", defaultPrice: 85, unit: "Running Ft" },
+            { name: "Exotic Indoor & Balcony Foliage Plants with Ceramic Pots", defaultPrice: 450, unit: "Nos" },
+            { name: "Bougainvillea / Climber Varieties with Trellis Setup", defaultPrice: 350, unit: "Nos" },
+            { name: "Ground Cover Plants (Wedelia / Mondo Grass / Ophiopogon)", defaultPrice: 40, unit: "Sq.ft" }
+        ]
+    },
+    {
+        category: "🌴 Trees & Palms",
+        items: [
+            { name: "Royal Palm Trees (8 to 10 ft Height, Root Balled)", defaultPrice: 3500, unit: "Nos" },
+            { name: "Foxtail Palm (Wodyetia bifurcata) Single Trunk (6-8 ft)", defaultPrice: 2800, unit: "Nos" },
+            { name: "Areca Palm Clumps (5 to 6 ft Height)", defaultPrice: 750, unit: "Nos" },
+            { name: "Traveller's Palm (Ravenala madagascariensis)", defaultPrice: 2200, unit: "Nos" },
+            { name: "Flowering Avenue Trees (Tabebuia / Gulmohar / Cassia Fistula)", defaultPrice: 1200, unit: "Nos" },
+            { name: "Plumeria / Frangipani Specimen Architectural Plant", defaultPrice: 1800, unit: "Nos" }
+        ]
+    },
+    {
+        category: "🚜 Soil & Ground Preparation",
+        items: [
+            { name: "Good Quality Red Soil Supply (Per Truck Load / 3 Units)", defaultPrice: 4500, unit: "Truck Load" },
+            { name: "Organic Vermicompost & Decomposed Cattle Manure (Bag)", defaultPrice: 350, unit: "Bag" },
+            { name: "Site Clearing, Debris Removal & Land Excavation", defaultPrice: 3000, unit: "Lump Sum" },
+            { name: "Anti-Termite & Soil Conditioning Treatment", defaultPrice: 1500, unit: "Lump Sum" }
+        ]
+    },
+    {
+        category: "🪨 Hardscaping, Stones & Pathways",
+        items: [
+            { name: "Natural Cobble Stone Pathway Laying with Base Concrete", defaultPrice: 180, unit: "Sq.ft" },
+            { name: "Rough Granite / Kadappa Stone Stepping Stones Installation", defaultPrice: 350, unit: "Nos" },
+            { name: "Decorative White River Pebbles (Grade-A, Polished)", defaultPrice: 35, unit: "Kg" },
+            { name: "Black Polished River Pebbles & Border Gravel Laying", defaultPrice: 45, unit: "Kg" },
+            { name: "Natural Stone Feature Wall / Slate Cladding", defaultPrice: 220, unit: "Sq.ft" },
+            { name: "Garden Border Kerb Stone / Brick Edging Laying", defaultPrice: 95, unit: "Running Ft" }
+        ]
+    },
+    {
+        category: "💧 Irrigation & Water Features",
+        items: [
+            { name: "Automated Drip Irrigation System with Digital Timer & Filter", defaultPrice: 15000, unit: "Lump Sum" },
+            { name: "Pop-up Lawn Sprinkler Network with Solenoid Valves", defaultPrice: 18000, unit: "Lump Sum" },
+            { name: "Natural Rock Water Fountain / Cascade Water Feature", defaultPrice: 35000, unit: "Lump Sum" },
+            { name: "Garden Water Body / Lily Pond Setup with Submersible Pump", defaultPrice: 28000, unit: "Lump Sum" }
+        ]
+    },
+    {
+        category: "🏡 Pergolas, Decks & Vertical Gardens",
+        items: [
+            { name: "Vertical Garden / Green Wall System with Drip Line (Per Sq.ft)", defaultPrice: 450, unit: "Sq.ft" },
+            { name: "Wooden Finish MS Pergola / Gazebo Structure", defaultPrice: 45000, unit: "Lump Sum" },
+            { name: "Outdoor Warm LED Garden Spike Lights & Cabling", defaultPrice: 850, unit: "Nos" },
+            { name: "Garden Stepping Timber Deck Tiles Installation", defaultPrice: 320, unit: "Sq.ft" }
+        ]
+    },
+    {
+        category: "🛠️ Maintenance & Services",
+        items: [
+            { name: "Comprehensive Garden Maintenance Service (Monthly Contract)", defaultPrice: 6500, unit: "Monthly Contract" },
+            { name: "Tree Pruning, Canopy Shaping & Tall Branch Trimming", defaultPrice: 2500, unit: "Lump Sum" },
+            { name: "Organic Pest Control & Nutrient Foliar Spray Treatment", defaultPrice: 1800, unit: "Lump Sum" },
+            { name: "Landscape 2D/3D Concept Design & Consultation Fee", defaultPrice: 5000, unit: "Lump Sum" }
+        ]
+    }
+];
+
+var CATALOG = [];
+
+function loadCatalogFromStorage(){
+    try {
+        var saved = localStorage.getItem("GreenVistaa_Catalog");
+        if(saved){
+            var parsed = JSON.parse(saved);
+            if(Array.isArray(parsed) && parsed.length > 0){
+                CATALOG = parsed;
+                return;
+            }
+        }
+    } catch(e) {
+        console.error("Could not load catalog from storage", e);
+    }
+    CATALOG = JSON.parse(JSON.stringify(DEFAULT_CATALOG));
+    saveCatalogToStorage();
+}
+
+function saveCatalogToStorage(){
+    try {
+        localStorage.setItem("GreenVistaa_Catalog", JSON.stringify(CATALOG));
+    } catch(e) {
+        console.error("Could not save catalog to storage", e);
+    }
+}
+
+/* ================= ADMIN AUTHENTICATION ================= */
+var pendingAdminAction = null;
+
+// Master Default Terms and Conditions
+var DEFAULT_TERMS = [
+    "The above-mentioned measurement is approximate.",
+    "The above-mentioned total may vary according to the final measurements.",
+    "If unloading is done by porters, unloading charges (Rs. 300 per ton) shall be borne by the client.",
+    "Red soil shall be arranged by the Client. Earth leveling charges, if any, shall be borne by the Client.",
+    "Labour accommodation, if required at site, shall be arranged by the Client.",
+    "Stone is a natural product; shades, color, and characteristics may vary.",
+    "Water and electricity required at site for plantation and works shall be provided by the Client.",
+    "Any extra labour work, quantity variation, or design change beyond the quoted scope will be charged separately.",
+    "Other materials such as M-Sand, Cement, 6mm Baby Metal and Red Soil should be arranged by the client.",
+    "After installation, all ongoing care including watering, fertilizing, pruning, and maintenance is the responsibility of the Client unless a maintenance contract is agreed upon in writing.",
+    "Replacement of plants due to damage, neglect, vandalism, animal activity, or natural causes after installation shall be chargeable at additional cost.",
+    "The Contractor shall not be responsible for plant failure due to unsuitable soil conditions, underground obstructions, poor drainage, or undisclosed existing site conditions."
+];
+
+function getMasterTerms(){
+    try {
+        var saved = localStorage.getItem("GreenVistaa_Master_Terms");
+        if(saved){
+            var parsed = JSON.parse(saved);
+            if(Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+    } catch(e){}
+    return DEFAULT_TERMS;
+}
+
+function initTermsUI(){
+    var textarea = document.getElementById("termsConditions");
+    if(!textarea) return;
+    if(!textarea.value.trim()){
+        var terms = getMasterTerms();
+        textarea.value = terms.join("\n");
+    }
+}
+
+function resetTermsToMaster(){
+    var textarea = document.getElementById("termsConditions");
+    if(!textarea) return;
+    textarea.value = getMasterTerms().join("\n");
+    updateOutput();
+    renderPrintPages();
+    showToast("🔄 Terms reset to standard defaults.");
+}
+
+function saveCurrentTermsAsMaster(){
+    if(!isAdminLoggedIn()){
+        openAdminLogin(function(){
+            saveCurrentTermsAsMaster();
+        });
+        return;
+    }
+    var textarea = document.getElementById("termsConditions");
+    if(!textarea || !textarea.value.trim()){
+        showToast("Terms cannot be empty.", true);
+        return;
+    }
+    var lines = textarea.value.split(/\r?\n+/).map(function(s){ return s.trim(); }).filter(Boolean);
+    if(lines.length === 0){
+        showToast("Please enter at least one valid term.", true);
+        return;
+    }
+    localStorage.setItem("GreenVistaa_Master_Terms", JSON.stringify(lines));
+    showToast("💾 Saved as company Master Terms for all future quotations!");
+}
+
+
+/* ================= OVERALL SITE ACCESS AUTHENTICATION ================= */
+function isSiteUnlocked(){
+    return sessionStorage.getItem("GreenVistaa_Site_Unlocked") === "true" ||
+           localStorage.getItem("GreenVistaa_Site_Unlocked") === "true";
+}
+
+function checkSiteAccessOnLoad(){
+    var lockScreen = document.getElementById("siteLockScreen");
+    var mainApp = document.getElementById("mainAppContainer");
+    var passInp = document.getElementById("siteAccessPassword");
+
+    if(isSiteUnlocked()){
+        if(lockScreen) lockScreen.style.display = "none";
+        if(mainApp) mainApp.style.display = "block";
+    } else {
+        if(lockScreen) lockScreen.style.display = "flex";
+        if(mainApp) mainApp.style.display = "none";
+        if(passInp) setTimeout(function(){ passInp.focus(); }, 180);
+    }
+}
+
+function unlockSite(){
+    var passInp = document.getElementById("siteAccessPassword");
+    var err = document.getElementById("siteLockError");
+    var rem = document.getElementById("rememberDeviceCheck");
+    var entered = (passInp ? passInp.value : "").trim();
+    var masterPass = getStoredAdminPassword();
+
+    if(!entered){
+        if(err){ err.textContent = "Please enter the access password."; err.style.display = "block"; }
+        return;
+    }
+
+    if(entered === masterPass){
+        sessionStorage.setItem("GreenVistaa_Site_Unlocked", "true");
+        if(rem && rem.checked){
+            localStorage.setItem("GreenVistaa_Site_Unlocked", "true");
+        } else {
+            localStorage.removeItem("GreenVistaa_Site_Unlocked");
+        }
+
+        // Grant full admin session
+        sessionStorage.setItem("GreenVistaa_Admin_Auth", "true");
+        localStorage.setItem("GreenVistaa_Admin_Auth", "true");
+
+        var lockScreen = document.getElementById("siteLockScreen");
+        var mainApp = document.getElementById("mainAppContainer");
+
+        if(lockScreen) lockScreen.style.display = "none";
+        if(mainApp) mainApp.style.display = "block";
+
+        initLocationsUI();
+        updateAdminUI();
+        updateOutput();
+        renderPrintPages();
+        showToast("Welcome to Green Vistaa Dashboard! 🌿");
+    } else {
+        if(err){
+            err.textContent = "Incorrect password. Access denied.";
+            err.style.display = "block";
+        }
+        if(passInp){
+            passInp.value = "";
+            passInp.focus();
+        }
+    }
+}
+
+function lockSite(){
+    sessionStorage.removeItem("GreenVistaa_Site_Unlocked");
+    localStorage.removeItem("GreenVistaa_Site_Unlocked");
+    sessionStorage.removeItem("GreenVistaa_Admin_Auth");
+    localStorage.removeItem("GreenVistaa_Admin_Auth");
+
+    var lockScreen = document.getElementById("siteLockScreen");
+    var mainApp = document.getElementById("mainAppContainer");
+    var passInp = document.getElementById("siteAccessPassword");
+    var err = document.getElementById("siteLockError");
+
+    if(err) err.style.display = "none";
+    if(passInp) passInp.value = "";
+    if(lockScreen) lockScreen.style.display = "flex";
+    if(mainApp) mainApp.style.display = "none";
+    if(passInp) setTimeout(function(){ passInp.focus(); }, 120);
+
+    showToast("Dashboard locked.");
+}
+
+function toggleSitePasswordVisibility(){
+    var passInp = document.getElementById("siteAccessPassword");
+    if(!passInp) return;
+    passInp.type = (passInp.type === "password") ? "text" : "password";
+}
+
+function isAdminLoggedIn(){
+    return localStorage.getItem("GreenVistaa_Admin_Auth") === "true" || sessionStorage.getItem("GreenVistaa_Admin_Auth") === "true";
+}
+
+function getStoredAdminPassword(){
+    return localStorage.getItem("GreenVistaa_Admin_Password") || "Muthu@3031";
+}
+
+function updateAdminUI(){
+    var wrap = document.getElementById("adminHeaderAuthWrap");
+    if(!wrap) return;
+
+    if(isAdminLoggedIn()){
+        wrap.innerHTML = '<div class="admin-auth-group">' +
+            '<span class="admin-active-pill">🛡️ Admin</span>' +
+            '<button type="button" class="btn-admin-panel" onclick="openCatalogModal()" title="Manage Items Catalog">⚙️ Manage</button>' +
+            '<button type="button" class="btn-admin-logout" onclick="logoutAdmin()" title="Logout Admin">🚪</button>' +
+        '</div>';
+    } else {
+        wrap.innerHTML = '<button type="button" class="btn-admin-auth" onclick="openAdminLogin()">' +
+            '<span class="auth-icon">🔒</span> Admin Login' +
+        '</button>';
+    }
+}
+
+function handleManageItemsClick(){
+    if(isAdminLoggedIn()){
+        openCatalogModal();
+    } else {
+        openAdminLogin(function(){
+            openCatalogModal();
+        });
+    }
+}
+
+function openAdminLogin(onSuccessCallback){
+    pendingAdminAction = onSuccessCallback || null;
+    var modal = document.getElementById("adminLoginModal");
+    var err = document.getElementById("adminLoginError");
+    var userInp = document.getElementById("adminUsername");
+    var passInp = document.getElementById("adminPassword");
+
+    if(err) { err.style.display = "none"; err.textContent = ""; }
+    if(userInp) userInp.value = "";
+    if(passInp) passInp.value = "";
+    if(modal) modal.style.display = "flex";
+    if(userInp) setTimeout(function(){ userInp.focus(); }, 150);
+}
+
+function closeAdminLogin(){
+    var modal = document.getElementById("adminLoginModal");
+    if(modal) modal.style.display = "none";
+    pendingAdminAction = null;
+}
+
+function loginAdmin(){
+    var userInp = document.getElementById("adminUsername");
+    var passInp = document.getElementById("adminPassword");
+    var err = document.getElementById("adminLoginError");
+
+    var username = (userInp ? userInp.value : "").trim().toLowerCase();
+    var password = (passInp ? passInp.value : "").trim();
+    var validPass = getStoredAdminPassword();
+
+    if(!username || !password){
+        if(err){ err.textContent = "Please enter both username and password."; err.style.display = "block"; }
+        return;
+    }
+
+    if(username === "admin" && password === validPass){
+        sessionStorage.setItem("GreenVistaa_Admin_Auth", "true");
+        localStorage.setItem("GreenVistaa_Admin_Auth", "true");
+        closeAdminLogin();
+        updateAdminUI();
+        showToast("Logged in as Admin successfully! 🛡️");
+
+        if(typeof pendingAdminAction === "function"){
+            var cb = pendingAdminAction;
+            pendingAdminAction = null;
+            cb();
+        }
+    } else {
+        if(err){ err.textContent = "Invalid username or password."; err.style.display = "block"; }
+    }
+}
+
+function logoutAdmin(){
+    sessionStorage.removeItem("GreenVistaa_Admin_Auth");
+    localStorage.removeItem("GreenVistaa_Admin_Auth");
+    updateAdminUI();
+    closeCatalogModal();
+    showToast("Admin logged out.");
+}
+
+function openChangePasswordModal(){
+    var m = document.getElementById("changePasswordModal");
+    var err = document.getElementById("changePassError");
+    if(err){ err.style.display = "none"; err.textContent = ""; }
+    if(document.getElementById("currentAdminPass")) document.getElementById("currentAdminPass").value = "";
+    if(document.getElementById("newAdminPass")) document.getElementById("newAdminPass").value = "";
+    if(document.getElementById("confirmAdminPass")) document.getElementById("confirmAdminPass").value = "";
+    if(m) m.style.display = "flex";
+}
+
+function closeChangePasswordModal(){
+    var m = document.getElementById("changePasswordModal");
+    if(m) m.style.display = "none";
+}
+
+function saveNewAdminPassword(){
+    var cur = (document.getElementById("currentAdminPass") ? document.getElementById("currentAdminPass").value : "").trim();
+    var nw = (document.getElementById("newAdminPass") ? document.getElementById("newAdminPass").value : "").trim();
+    var cf = (document.getElementById("confirmAdminPass") ? document.getElementById("confirmAdminPass").value : "").trim();
+    var err = document.getElementById("changePassError");
+
+    var validPass = getStoredAdminPassword();
+    if(cur !== validPass){
+        if(err){ err.textContent = "Current password is incorrect."; err.style.display = "block"; }
+        return;
+    }
+    if(nw.length < 4){
+        if(err){ err.textContent = "New password must be at least 4 characters."; err.style.display = "block"; }
+        return;
+    }
+    if(nw !== cf){
+        if(err){ err.textContent = "New passwords do not match."; err.style.display = "block"; }
+        return;
+    }
+
+    localStorage.setItem("GreenVistaa_Admin_Password", nw);
+    closeChangePasswordModal();
+    showToast("Admin password updated successfully! 🔑");
+}
+
+/* ================= CATALOG MANAGEMENT SYSTEM ================= */
+function openCatalogModal(){
+    if(!isAdminLoggedIn()){
+        openAdminLogin(function(){ openCatalogModal(); });
+        return;
+    }
+    var modal = document.getElementById("catalogModal");
+    if(modal) modal.style.display = "flex";
+
+    cancelItemEdit();
+    populateCategoryDropdowns();
+    renderCatalogTable();
+}
+
+function closeCatalogModal(){
+    var modal = document.getElementById("catalogModal");
+    if(modal) modal.style.display = "none";
+}
+
+function populateCategoryDropdowns(){
+    var filterSel = document.getElementById("catalogCategoryFilter");
+    var newCatSel = document.getElementById("newItemCategory");
+
+    var cats = [];
+    for(var c = 0; c < CATALOG.length; c++){
+        cats.push(CATALOG[c].category);
+    }
+
+    if(filterSel){
+        var curVal = filterSel.value || "ALL";
+        var fHtml = '<option value="ALL">All Categories (' + cats.length + ')</option>';
+        for(var i = 0; i < cats.length; i++){
+            fHtml += '<option value="' + escapeHtml(cats[i]) + '">' + escapeHtml(cats[i]) + '</option>';
+        }
+        filterSel.innerHTML = fHtml;
+        filterSel.value = curVal;
+    }
+
+    if(newCatSel){
+        var nHtml = '';
+        for(var j = 0; j < cats.length; j++){
+            nHtml += '<option value="' + escapeHtml(cats[j]) + '">' + escapeHtml(cats[j]) + '</option>';
+        }
+        nHtml += '<option value="__NEW__">➕ Create New Category...</option>';
+        newCatSel.innerHTML = nHtml;
+    }
+}
+
+function onCategorySelectChange(val){
+    var customInp = document.getElementById("newCategoryCustomInput");
+    if(customInp){
+        customInp.style.display = (val === "__NEW__") ? "block" : "none";
+        if(val === "__NEW__") customInp.focus();
+    }
+}
+
+function toggleAddForm(forceOpen){
+    var card = document.getElementById("catalogItemFormCard");
+    var icon = document.getElementById("toggleAddFormIcon");
+    var txt = document.getElementById("toggleAddFormText");
+    if(!card) return;
+
+    var isOpen = (card.style.display !== "none");
+    if(forceOpen !== undefined) isOpen = !forceOpen;
+
+    if(isOpen){
+        card.style.display = "none";
+        if(icon) icon.textContent = "➕";
+        if(txt) txt.textContent = "Add New Item";
+    } else {
+        card.style.display = "block";
+        if(icon) icon.textContent = "✕";
+        if(txt) txt.textContent = "Close Form";
+        var nameInp = document.getElementById("newItemName");
+        if(nameInp) setTimeout(function(){ nameInp.focus(); }, 100);
+    }
+}
+
+function cancelItemEdit(){
+    var editOrigCat = document.getElementById("editItemOrigCat");
+    var editOrigIdx = document.getElementById("editItemOrigIdx");
+    var nameInp = document.getElementById("newItemName");
+    var priceInp = document.getElementById("newItemPrice");
+    var unitSel = document.getElementById("newItemUnit");
+    var catSel = document.getElementById("newItemCategory");
+    var customCat = document.getElementById("newCategoryCustomInput");
+    var title = document.getElementById("formActionTitle");
+    var btnText = document.getElementById("saveItemBtnText");
+
+    if(editOrigCat) editOrigCat.value = "";
+    if(editOrigIdx) editOrigIdx.value = "";
+    if(nameInp) nameInp.value = "";
+    if(priceInp) priceInp.value = "";
+    if(unitSel) unitSel.value = "";
+    if(catSel) catSel.selectedIndex = 0;
+    if(customCat){ customCat.value = ""; customCat.style.display = "none"; }
+    if(title) title.textContent = "➕ Add New Item to Master Catalog";
+    if(btnText) btnText.textContent = "Save Item to Catalog";
+
+    var card = document.getElementById("catalogItemFormCard");
+    if(card) card.style.display = "none";
+    var icon = document.getElementById("toggleAddFormIcon");
+    var txt = document.getElementById("toggleAddFormText");
+    if(icon) icon.textContent = "➕";
+    if(txt) txt.textContent = "Add New Item";
+}
+
+function editCatalogItem(catIndex, itemIndex){
+    var cat = CATALOG[catIndex];
+    if(!cat || !cat.items[itemIndex]) return;
+    var item = cat.items[itemIndex];
+
+    populateCategoryDropdowns();
+    toggleAddForm(true);
+
+    var editOrigCat = document.getElementById("editItemOrigCat");
+    var editOrigIdx = document.getElementById("editItemOrigIdx");
+    var nameInp = document.getElementById("newItemName");
+    var priceInp = document.getElementById("newItemPrice");
+    var unitSel = document.getElementById("newItemUnit");
+    var catSel = document.getElementById("newItemCategory");
+    var customCat = document.getElementById("newCategoryCustomInput");
+    var title = document.getElementById("formActionTitle");
+    var btnText = document.getElementById("saveItemBtnText");
+
+    if(editOrigCat) editOrigCat.value = catIndex;
+    if(editOrigIdx) editOrigIdx.value = itemIndex;
+    if(nameInp) nameInp.value = item.name;
+    if(priceInp) priceInp.value = item.defaultPrice || "";
+    if(unitSel) unitSel.value = item.unit || "";
+    if(catSel) catSel.value = cat.category;
+    if(customCat){ customCat.value = ""; customCat.style.display = "none"; }
+    if(title) title.textContent = "✏️ Edit Catalog Item";
+    if(btnText) btnText.textContent = "Update Catalog Item";
+
+    var card = document.getElementById("catalogItemFormCard");
+    if(card) card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if(nameInp) nameInp.focus();
+}
+
+function deleteCatalogItem(catIndex, itemIndex){
+    var cat = CATALOG[catIndex];
+    if(!cat || !cat.items[itemIndex]) return;
+    var item = cat.items[itemIndex];
+
+    if(!confirm("Are you sure you want to delete this item from the catalog?\n\n" + item.name)) {
+        return;
+    }
+
+    cat.items.splice(itemIndex, 1);
+    if(cat.items.length === 0){
+        CATALOG.splice(catIndex, 1);
+    }
+
+    saveCatalogToStorage();
+    initCatalogUI();
+    initTermsUI();
+    renderEditor();
+    renderCatalogTable();
+    showToast("Item deleted from catalog.");
+}
+
+function saveCatalogItem(){
+    var nameInp = document.getElementById("newItemName");
+    var catSel = document.getElementById("newItemCategory");
+    var customCatInp = document.getElementById("newCategoryCustomInput");
+    var priceInp = document.getElementById("newItemPrice");
+    var unitSel = document.getElementById("newItemUnit");
+    var editOrigCat = document.getElementById("editItemOrigCat");
+    var editOrigIdx = document.getElementById("editItemOrigIdx");
+
+    var name = (nameInp ? nameInp.value : "").trim();
+    if(!name){
+        alert("Please enter item name / description.");
+        if(nameInp) nameInp.focus();
+        return;
+    }
+
+    var category = "";
+    if(catSel && catSel.value === "__NEW__"){
+        category = (customCatInp ? customCatInp.value : "").trim();
+        if(!category){
+            alert("Please type a name for the new category.");
+            if(customCatInp) customCatInp.focus();
+            return;
+        }
+    } else if(catSel){
+        category = catSel.value;
+    }
+    if(!category) category = "General Landscaping";
+
+    var price = priceInp && priceInp.value !== "" ? Number(priceInp.value) : "";
+    var unit = unitSel ? unitSel.value : "";
+
+    var newItemObj = {
+        name: name,
+        defaultPrice: price,
+        unit: unit
+    };
+
+    var isEdit = (editOrigCat && editOrigCat.value !== "" && editOrigIdx && editOrigIdx.value !== "");
+
+    if(isEdit){
+        var oldCatIdx = Number(editOrigCat.value);
+        var oldItemIdx = Number(editOrigIdx.value);
+
+        if(CATALOG[oldCatIdx] && CATALOG[oldCatIdx].category === category){
+            // Updated in same category
+            CATALOG[oldCatIdx].items[oldItemIdx] = newItemObj;
+        } else {
+            // Moved to a different category
+            if(CATALOG[oldCatIdx] && CATALOG[oldCatIdx].items){
+                CATALOG[oldCatIdx].items.splice(oldItemIdx, 1);
+                if(CATALOG[oldCatIdx].items.length === 0){
+                    CATALOG.splice(oldCatIdx, 1);
+                }
+            }
+            // Add to new category
+            var targetCat = null;
+            for(var c = 0; c < CATALOG.length; c++){
+                if(CATALOG[c].category.toLowerCase() === category.toLowerCase()){
+                    targetCat = CATALOG[c];
+                    break;
+                }
+            }
+            if(!targetCat){
+                targetCat = { category: category, items: [] };
+                CATALOG.push(targetCat);
+            }
+            targetCat.items.push(newItemObj);
+        }
+        showToast("Catalog item updated! 💾");
+    } else {
+        // Add new item
+        var targetCat = null;
+        for(var c = 0; c < CATALOG.length; c++){
+            if(CATALOG[c].category.toLowerCase() === category.toLowerCase()){
+                targetCat = CATALOG[c];
+                break;
+            }
+        }
+        if(!targetCat){
+            targetCat = { category: category, items: [] };
+            CATALOG.push(targetCat);
+        }
+        targetCat.items.push(newItemObj);
+        showToast("New item added to catalog! 🌿");
+    }
+
+    saveCatalogToStorage();
+    cancelItemEdit();
+    populateCategoryDropdowns();
+    renderCatalogTable();
+    initCatalogUI();
+    initTermsUI();
+    renderEditor();
+}
+
+function filterCatalogTable(){
+    var searchInp = document.getElementById("catalogSearchInput");
+    var filterSel = document.getElementById("catalogCategoryFilter");
+    var search = searchInp ? searchInp.value.toLowerCase().trim() : "";
+    var catFilter = filterSel ? filterSel.value : "ALL";
+
+    renderCatalogTable(search, catFilter);
+}
+
+function renderCatalogTable(searchText, categoryFilter){
+    searchText = (searchText || "").toLowerCase();
+    categoryFilter = categoryFilter || "ALL";
+
+    var tbody = document.getElementById("catalogTableBody");
+    var statsSub = document.getElementById("catalogStatsSubtitle");
+    if(!tbody) return;
+
+    var rowsHtml = "";
+    var totalCount = 0;
+    var displayedCount = 0;
+
+    for(var c = 0; c < CATALOG.length; c++){
+        var cat = CATALOG[c];
+        totalCount += cat.items.length;
+
+        if(categoryFilter !== "ALL" && cat.category !== categoryFilter) continue;
+
+        for(var k = 0; k < cat.items.length; k++){
+            var itm = cat.items[k];
+
+            if(searchText){
+                var matchName = itm.name.toLowerCase().indexOf(searchText) !== -1;
+                var matchCat = cat.category.toLowerCase().indexOf(searchText) !== -1;
+                if(!matchName && !matchCat) continue;
+            }
+
+            displayedCount++;
+            var priceStr = itm.defaultPrice ? "₹ " + money(itm.defaultPrice) : "<span style='color:#9ca3af;'>Not set</span>";
+            var unitBadge = itm.unit ? "<span class='item-unit-tag'>(" + escapeHtml(itm.unit) + ")</span>" : "";
+
+            rowsHtml += '<tr>' +
+                '<td style="text-align:center; color:#9ca3af;">' + displayedCount + '</td>' +
+                '<td><b>' + escapeHtml(itm.name) + '</b> ' + unitBadge + '</td>' +
+                '<td><span class="cat-badge">' + escapeHtml(cat.category) + '</span></td>' +
+                '<td style="text-align:right; font-weight:700; color:#86efac;">' + priceStr + '</td>' +
+                '<td>' +
+                    '<div class="table-actions-cell">' +
+                        '<button type="button" class="btn-action-edit" onclick="editCatalogItem(' + c + ', ' + k + ')" title="Edit item">✏️ Edit</button>' +
+                        '<button type="button" class="btn-action-del" onclick="deleteCatalogItem(' + c + ', ' + k + ')" title="Delete item">🗑️</button>' +
+                    '</div>' +
+                '</td>' +
+            '</tr>';
+        }
+    }
+
+    if(displayedCount === 0){
+        rowsHtml = '<tr><td colspan="5" style="text-align:center; padding:24px; color:#9ca3af; font-style:italic;">No items found matching your filter. Click "+ Add New Item" above to add one.</td></tr>';
+    }
+
+    tbody.innerHTML = rowsHtml;
+    if(statsSub){
+        statsSub.textContent = totalCount + " Items across " + CATALOG.length + " Categories (" + displayedCount + " shown)";
+    }
+}
+
+function resetCatalogToDefault(){
+    if(!confirm("Are you sure you want to reset the entire catalog to the original default 35+ items?\n\nAny custom items you added will be replaced by the defaults.")){
+        return;
+    }
+    CATALOG = JSON.parse(JSON.stringify(DEFAULT_CATALOG));
+    saveCatalogToStorage();
+    cancelItemEdit();
+    populateCategoryDropdowns();
+    renderCatalogTable();
+    initCatalogUI();
+    initTermsUI();
+    renderEditor();
+    showToast("Catalog reset to defaults! 🔄");
+}
+
+function exportCatalogJSON(){
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(CATALOG, null, 2));
+    var dlAnchor = document.createElement('a');
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", "greenvistaa_item_catalog.json");
+    document.body.appendChild(dlAnchor);
+    dlAnchor.click();
+    dlAnchor.remove();
+    showToast("Catalog exported as JSON file! 📥");
+}
+
+function triggerImportCatalogJSON(){
+    var fileInput = document.getElementById("importCatalogFileInput");
+    if(fileInput) fileInput.click();
+}
+
+function importCatalogJSON(event){
+    var file = event.target.files[0];
+    if(!file) return;
+
+    var reader = new FileReader();
+    reader.onload = function(e){
+        try {
+            var imported = JSON.parse(e.target.result);
+            if(Array.isArray(imported) && imported.length > 0 && imported[0].category && imported[0].items){
+                CATALOG = imported;
+                saveCatalogToStorage();
+                populateCategoryDropdowns();
+                renderCatalogTable();
+                initCatalogUI();
+    initTermsUI();
+                renderEditor();
+                showToast("Catalog imported successfully! 📤");
+            } else {
+                alert("Invalid catalog JSON format. Please select a valid exported catalog file.");
+            }
+        } catch(err){
+            alert("Error parsing JSON file: " + err.message);
+        }
+        event.target.value = "";
+    };
+    reader.readAsText(file);
+}
+
+function showToast(msg, isError){
+    var toast = document.getElementById("appToast");
+    var toastMsg = document.getElementById("toastMessage");
+    var toastIcon = document.getElementById("toastIcon");
+    if(!toast) return;
+
+    if(toastMsg) toastMsg.textContent = msg;
+    if(toastIcon) toastIcon.textContent = isError ? "❌" : "✅";
+
+    toast.classList.toggle("toast-error", !!isError);
+    toast.style.display = "flex";
+
+    if(window._toastTimer) clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(function(){
+        toast.style.display = "none";
+    }, 3200);
+}
+
+
+var items = [];
+
+function money(n){
+    return Number(n || 0).toLocaleString("en-IN", {
+        maximumFractionDigits:2
+    });
+}
+
+// ================= PROJECT LOCATIONS & AREAS COMBO SYSTEM =================
+var DEFAULT_LOCATIONS = [
+    "Thudiyalur",
+    "Cheran Ma Nagar",
+    "Saravanampatti",
+    "Gandhipuram",
+    "RS Puram",
+    "Saibaba Colony",
+    "Peelamedu",
+    "Ganapathy",
+    "Vadavalli",
+    "Singanallur",
+    "Ramanathapuram",
+    "Town Hall",
+    "Ukkadam",
+    "Race Course",
+    "Podanur",
+    "Vellalore",
+    "Kuniyamuthur",
+    "Kovaipudur",
+    "Sundarapuram",
+    "Kurichi",
+    "Eachanari",
+    "Perur",
+    "Selvapuram",
+    "Kavundampalayam",
+    "Kanuvai",
+    "Thadagam",
+    "Pannimadai",
+    "Vellakinar",
+    "NGGO Colony",
+    "Chinnavedampatti",
+    "Maniyakaranpalayam",
+    "Nallampalayam",
+    "Sivananda Colony",
+    "Rathinapuri",
+    "Tatabad",
+    "Siddhapudur",
+    "Ram Nagar",
+    "Saibaba Mission",
+    "TVS Nagar",
+    "Edayarpalayam",
+    "P.N. Pudur",
+    "Veerakeralam",
+    "Kalveerampalayam",
+    "Marudhamalai",
+    "Somayampalayam",
+    "Vilankurichi",
+    "Kalapatti",
+    "Keeranatham",
+    "Chinniyampalayam",
+    "Neelambur",
+    "SITRA",
+    "Irugur",
+    "Ondipudur",
+    "Sulur",
+    "Sowripalayam",
+    "Uppilipalayam",
+    "Puliakulam",
+    "Nanjundapuram",
+    "Trichy Road",
+    "Avinashi Road",
+    "Sathy Road",
+    "Mettupalayam Road",
+    "Thondamuthur",
+    "Vedapatti",
+    "Vellakinar Road",
+    "KNG Pudur",
+    "Subramaniampalayam",
+    "Kurudampalayam",
+    "Periyanaickenpalayam",
+    "Narasimhanaickenpalayam",
+    "Idigarai",
+    "Karamadai",
+    "Annur",
+    "Kovilpalayam",
+    "Athipalayam",
+    "Vilankurichi Road",
+    "Masakkalipalayam",
+    "Hope College",
+    "Lakshmi Mills",
+    "Race Course Road",
+    "Red Fields",
+    "Ponnairajapuram",
+    "Gopalapuram",
+    "Sukrawar Pettai",
+    "Oppanakara Street",
+    "Big Bazaar Street",
+    "Karumbukadai",
+    "Athupalam",
+    "BK Pudur",
+    "Madukkarai",
+    "Malumichampatti",
+    "Othakalmandapam",
+    "Ettimadai",
+    "Myleripalayam",
+    "Kovaipudur Pirivu",
+    "Vadavalli Pirivu",
+    "Thudiyalur Pirivu",
+    "Cheran Nagar",
+    "Gandhi Managar",
+    "VKG Garden",
+    "Vishwanathapuram",
+    "Avarampalayam",
+    "Chinnampalayam",
+    "Chinthamanipudur",
+    "GN Mills",
+    "Subramaniapalayam",
+    "Appanaickenpalayam",
+    "Chinna Thadagam",
+    "Periya Thadagam",
+    "Veerapandi",
+    "Kovilmedu",
+    "Velandipalayam",
+    "Press Colony",
+    "Shanthi Medu",
+    "Ganeshapuram",
+    "Mullai Nagar",
+    "Thennampalayam",
+    "Pachapalayam",
+    "Pooluvapatti",
+    "Thoppampatti Pirivu",
+    "Bommanampalayam",
+    "Kuppanur",
+    "Sundakkamuthur",
+    "Sokkampudur",
+    "Sugunapuram",
+    "Chettipalayam",
+    "Pattanam",
+    "Vellanaipatti",
+    "Kondayampalayam",
+    "Vadamadurai",
+    "Narasipuram",
+    "Arasur",
+    "Karumathampatti",
+    "Pappampatti",
+    "Kannampalayam",
+    "Vagarayampalayam",
+    "Kamachipuram",
+    "Nachipalayam",
+    "Karadivavi",
+    "Kinathukadavu",
+    "Madhampatti",
+    "Kallapalayam",
+    "Mylampatti",
+    "Naranapuram",
+    "Appanaickenpatti",
+    "Kaduvettipalayam",
+    "Semmandampalayam",
+    "Samathur",
+    "Devarayapuram",
+    "Madvarayapuram",
+    "Thennamanallur",
+    "Ikkarai Boluvampatti",
+    "Theethipalayam",
+    "Perur Chettipalayam",
+    "Alandurai",
+    "Pooluvapatti Pirivu",
+    "Kalampalayam",
+    "Vedapatti Pirivu",
+    "Selvapuram North",
+    "Selvapuram South",
+    "Telungupalayam",
+    "Kallimadai",
+    "Nanjundapuram Road",
+    "Ramanathapuram Signal",
+    "Sowripalayam Pirivu",
+    "Pankaja Mills Road",
+    "Varadharajapuram",
+    "Singanallur Kamarajar Road",
+    "Vasantha Nagar",
+    "Meena Estate",
+    "Nava India",
+    "Peelamedu Pudur",
+    "B.R. Puram",
+    "Bharathi Colony",
+    "Lakshmi Puram",
+    "Indira Nagar",
+    "Hope College Pirivu",
+    "Goldwins",
+    "Civil Aerodrome Post",
+    "Nehru Nagar",
+    "Ezhil Nagar",
+    "Cheran Nagar Extension",
+    "Sivanandhapuram",
+    "Saravanampatti Thanneerpandal",
+    "Viswasapuram",
+    "Athipalayam Pirivu",
+    "Vellakinar Pirivu",
+    "Gounder Mills",
+    "Thudiyalur Market",
+    "NGGO Colony Extension",
+    "Koundampalayam",
+    "FCI Road",
+    "Edayarpalayam Pirivu",
+    "TVS Nagar Extension",
+    "Kanuvai Pirivu",
+    "Maruthamalai Adivaram",
+    "Bharathiar University Area",
+    "Poochiyur",
+    "Kalikkanaickenpalayam",
+    "Somayampalayam Pirivu",
+    "Vadavalli Thirumurugan Nagar",
+    "Veerakeralam Pirivu",
+    "P.N. Pudur Extension",
+    "Kovaipudur A Block",
+    "Kovaipudur B Block",
+    "Kuniyamuthur Palakkad Road",
+    "Sundarapuram Athupalam",
+    "Kurichi Housing Unit",
+    "SIDCO Industrial Estate",
+    "Eachanari Pirivu",
+    "Podanur Chettipalayam Road",
+    "Vellalore Pirivu",
+    "Singanallur Uzhavar Sandhai Area",
+    "Ondipudur Bus Stand Area",
+    "Irugur Road",
+    "Trichy Road Ramanathapuram",
+    "Chinniyampalayam Pirivu",
+    "Kalapatti Pirivu",
+    "Neelambur Bypass Area",
+    "Avinashi Road Airport Junction",
+    "KNG Pudur Pirivu",
+    "NGGO Colony Pirivu",
+    "G.N. Mills Pirivu",
+    "Cheran Ma Nagar Extension",
+    "Sathy Road Saravanampatti",
+    "Dr. Jaganathan Nagar",
+    "Vellakinar Housing Unit",
+    "Sreevatsa Garden",
+    "Viswanathapuram",
+    "Bharathi Park",
+    "Saibaba Colony West",
+    "Saibaba Colony East",
+    "R.S. Puram West",
+    "R.S. Puram East",
+    "Sukrawarpet",
+    "Town Hall Extension",
+    "Ukkadam Perur Road",
+    "Fort Area",
+    "Variety Hall Road",
+    "Selvapuram Pirivu",
+    "Kottaimedu",
+    "Aathupalam",
+    "Karumbukkadai Extension",
+    "Kuniyamuthur Housing Unit",
+    "Sundarapuram Housing Unit",
+    "Kurichi Pirivu",
+    "SIDCO Post",
+    "Eachanari Housing Unit",
+    "Podanur Railway Colony",
+    "Podanur Chettipalayam Pirivu",
+    "Vellalore Housing Unit",
+    "Pattanam Pudur",
+    "Singanallur Vellalore Road",
+    "SIHS Colony",
+    "Nehru Nagar West",
+    "Nehru Nagar East",
+    "Goldwins Extension",
+    "Chinniyampalayam Housing Area",
+    "Kalapatti Housing Unit",
+    "Vilankurichi Housing Area",
+    "Saravanampatti Housing Unit",
+    "Keeranatham IT Park Area",
+    "Kovilpalayam Road",
+    "Athipalayam Road",
+    "Ganapathy Managar",
+    "Ganapathy Pudur",
+    "Sivanandhapuram Extension",
+    "Nallampalayam Extension",
+    "Rathinapuri Extension",
+    "Tatabad Extension",
+    "Ram Nagar Extension",
+    "Siddhapudur Extension",
+    "Puliakulam Housing Area",
+    "Sowripalayam Extension",
+    "Masakalipalayam Extension",
+    "Uppilipalayam Housing Area",
+    "Avarampalayam Extension",
+    "Peelamedu Industrial Estate",
+    "B.R. Puram Extension",
+    "Lakshmi Mills Junction"
+];
+
+function getLocationsList(){
+    try {
+        var saved = localStorage.getItem("GreenVistaa_Locations_List_v2");
+        if(saved){
+            var parsed = JSON.parse(saved);
+            if(Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+    } catch(e){}
+    // Save new full list into storage
+    try {
+        localStorage.setItem("GreenVistaa_Locations_List_v2", JSON.stringify(DEFAULT_LOCATIONS));
+    } catch(e){}
+    return DEFAULT_LOCATIONS;
+}
+
+
+// Immediately populate location datalist on DOM ready
+document.addEventListener("DOMContentLoaded", function(){
+    initLocationsUI();
+});
+function initLocationsUI(){
+    var list = getLocationsList();
+    var datalist = document.getElementById("projectLocationsDatalist");
+    var select = document.getElementById("locationSelectDropdown");
+
+    if(datalist){
+        var dlHtml = "";
+        for(var i = 0; i < list.length; i++){
+            dlHtml += '<option value="' + escapeHtml(list[i]) + '"></option>';
+        }
+        datalist.innerHTML = dlHtml;
+    }
+
+    if(select){
+        var selHtml = '<option value="" disabled selected>▾ Pick Area</option>';
+        for(var i = 0; i < list.length; i++){
+            selHtml += '<option value="' + escapeHtml(list[i]) + '">' + escapeHtml(list[i]) + '</option>';
+        }
+        select.innerHTML = selHtml;
+    }
+}
+
+function onLocationDropdownSelect(val){
+    if(!val) return;
+    var inp = document.getElementById("projectLocation");
+    if(inp){
+        inp.value = val;
+        updateOutput();
+        renderPrintPages();
+    }
+}
+
+function openLocationsManagerModal(){
+    var modal = document.getElementById("locationsManagerModal");
+    var textarea = document.getElementById("locationsListTextarea");
+    var label = document.getElementById("locationsCountLabel");
+    if(!modal) return;
+
+    var list = getLocationsList();
+    if(textarea) textarea.value = list.join("\n");
+    if(label) label.textContent = list.length + (list.length === 1 ? " area" : " areas");
+
+    modal.style.display = "flex";
+}
+
+function closeLocationsManagerModal(){
+    var modal = document.getElementById("locationsManagerModal");
+    if(modal) modal.style.display = "none";
+}
+
+function saveLocationsFromManager(){
+    var textarea = document.getElementById("locationsListTextarea");
+    if(!textarea) return;
+
+    var lines = textarea.value.split(/\r?\n+/).map(function(s){ return s.trim(); }).filter(Boolean);
+    if(lines.length === 0){
+        showToast("Please enter at least one location/area.", true);
+        return;
+    }
+
+    // Remove duplicates while preserving order
+    var unique = [];
+    for(var i = 0; i < lines.length; i++){
+        if(unique.indexOf(lines[i]) === -1){
+            unique.push(lines[i]);
+        }
+    }
+
+    localStorage.setItem("GreenVistaa_Locations_List_v2", JSON.stringify(unique));
+    initLocationsUI();
+    closeLocationsManagerModal();
+    showToast("📍 Saved " + unique.length + " areas successfully!");
+}
+
+function resetLocationsToDefault(){
+    var textarea = document.getElementById("locationsListTextarea");
+    var label = document.getElementById("locationsCountLabel");
+    if(textarea) textarea.value = DEFAULT_LOCATIONS.join("\n");
+    if(label) label.textContent = DEFAULT_LOCATIONS.length + " areas";
+    showToast("🔄 Reset to standard Coimbatore areas.");
+}
+
+function initCatalogUI(){
+    // 1. Populate Datalist
+    var datalist = document.getElementById("landscapingItemsCatalog");
+    if(datalist){
+        var dlHtml = "";
+        for(var c = 0; c < CATALOG.length; c++){
+            var cat = CATALOG[c];
+            for(var k = 0; k < cat.items.length; k++){
+                dlHtml += '<option value="' + escapeHtml(cat.items[k].name) + '"></option>';
+            }
+        }
+        datalist.innerHTML = dlHtml;
+    }
+
+    // 2. Populate Quick Add Dropdown in Toolbar Header
+    var quickSelect = document.getElementById("quickCatalogAdd");
+    if(quickSelect){
+        var qsHtml = '<option value="" disabled selected>⚡ Quick Add Item ▾</option>';
+        for(var c = 0; c < CATALOG.length; c++){
+            var cat = CATALOG[c];
+            qsHtml += '<optgroup label="' + escapeHtml(cat.category) + '">';
+            for(var k = 0; k < cat.items.length; k++){
+                qsHtml += '<option value="' + escapeHtml(cat.items[k].name) + '">' + escapeHtml(cat.items[k].name) + '</option>';
+            }
+            qsHtml += '</optgroup>';
+        }
+        quickSelect.innerHTML = qsHtml;
+    }
+}
+
+function getCatalogSelectHtml(index){
+    var html = '<select class="desc-select-dropdown" onchange="onDropdownSelect(' + index + ', this.value); this.selectedIndex=0;" title="Select from dropdown list">';
+    html += '<option value="" disabled selected>▾ Pick from List</option>';
+    for(var c = 0; c < CATALOG.length; c++){
+        var cat = CATALOG[c];
+        html += '<optgroup label="' + escapeHtml(cat.category) + '">';
+        for(var k = 0; k < cat.items.length; k++){
+            var itm = cat.items[k];
+            html += '<option value="' + escapeHtml(itm.name) + '">' + escapeHtml(itm.name) + '</option>';
+        }
+        html += '</optgroup>';
+    }
+    html += '</select>';
+    return html;
+}
+
+function quickAddCatalogItem(itemName){
+    if(!itemName) return;
+    var defaultPrice = "";
+    for(var c = 0; c < CATALOG.length; c++){
+        for(var k = 0; k < CATALOG[c].items.length; k++){
+            if(CATALOG[c].items[k].name === itemName){
+                defaultPrice = CATALOG[c].items[k].defaultPrice || "";
+                break;
+            }
+        }
+        if(defaultPrice) break;
+    }
+
+    if(items.length === 1 && !items[0].desc && !items[0].qty && !items[0].price){
+        items[0] = { desc: itemName, qty: 1, price: defaultPrice };
+    } else {
+        items.push({ desc: itemName, qty: 1, price: defaultPrice });
+    }
+    renderEditor();
+    renderPrintPages();
+}
+
+function setPaymentPreset(type){
+    var textarea = document.getElementById("paymentTerms");
+    if(!textarea) return;
+    if(type === 'std'){
+        textarea.value = "Rs.60,000 advance at the time of order confirmation.\nRs.30,000 at the time of material delivery.\nBalance Amount during the progress or completion of work.";
+    } else if(type === '50-40-10'){
+        textarea.value = "50% advance at the time of order confirmation.\n40% upon delivery of plants and landscape materials.\n10% on project completion and handover.";
+    } else if(type === 'advance'){
+        textarea.value = "100% advance payment required prior to mobilization and material dispatch.";
+    }
+    updateOutput();
+}
+
+function addItem(data){
+    data = data || {};
+    items.push({
+        desc: data.desc || "",
+        qty: data.qty || "",
+        price: data.price || ""
+    });
+    renderEditor();
+    renderPrintPages();
+}
+
+function deleteLastItem(){
+    if(items.length > 1){
+        items.pop();
+        renderEditor();
+        renderPrintPages();
+    } else if(items.length === 1){
+        items[0] = { desc: "", qty: "", price: "" };
+        renderEditor();
+        renderPrintPages();
+    }
+}
+
+function removeItem(i){
+    if(items.length > 1){
+        items.splice(i, 1);
+    } else {
+        items = [{ desc: "", qty: "", price: "" }];
+    }
+    renderEditor();
+    renderPrintPages();
+}
+
+function renderEditor(){
+    var box = document.getElementById("itemEditor");
+    if(!box) return;
+
+    var htmlRows = "";
+    for(var i = 0; i < items.length; i++){
+        var it = items[i];
+        var rowTotal = (Number(it.qty) || 0) * (Number(it.price) || 0);
+
+        htmlRows += '<div class="item-row" id="item-row-' + i + '">' +
+            '<div class="row-col col-sno">' +
+                '<span class="sno-badge">' + (i + 1) + '</span>' +
+            '</div>' +
+            '<div class="row-col col-desc">' +
+                '<div class="desc-combo-box">' +
+                    getCatalogSelectHtml(i) +
+                    '<input type="text" ' +
+                           'id="item-desc-' + i + '" ' +
+                           'list="landscapingItemsCatalog" ' +
+                           'class="row-desc-input" ' +
+                           'value="' + escapeHtml(it.desc) + '" ' +
+                           'placeholder="Type or pick from dropdown list..." ' +
+                           'oninput="onDescChange(' + i + ', this.value)" ' +
+                           'onchange="onDescChange(' + i + ', this.value)">' +
+                '</div>' +
+            '</div>' +
+            '<div class="row-col col-qty">' +
+                '<input type="number" ' +
+                       'min="0" ' +
+                       'step="any" ' +
+                       'value="' + (it.qty !== undefined ? it.qty : "") + '" ' +
+                       'class="row-qty-input" ' +
+                       'placeholder="Qty" ' +
+                       'oninput="onQtyChange(' + i + ', this.value)" ' +
+                       'onchange="onQtyChange(' + i + ', this.value)">' +
+            '</div>' +
+            '<div class="row-col col-price">' +
+                '<div class="price-input-wrap">' +
+                    '<span class="price-prefix">₹</span>' +
+                    '<input type="number" ' +
+                           'min="0" ' +
+                           'step="any" ' +
+                           'id="item-price-' + i + '" ' +
+                           'value="' + (it.price !== undefined ? it.price : "") + '" ' +
+                           'class="row-price-input" ' +
+                           'placeholder="Price" ' +
+                           'oninput="onPriceChange(' + i + ', this.value)" ' +
+                           'onchange="onPriceChange(' + i + ', this.value)">' +
+                '</div>' +
+            '</div>' +
+            '<div class="row-col col-total">' +
+                '<div class="total-display-cell">' +
+                    '<span class="total-curr">₹</span>' +
+                    '<span class="total-val" id="row-total-' + i + '">' + money(rowTotal) + '</span>' +
+                '</div>' +
+            '</div>' +
+            '<div class="row-col col-action">' +
+                '<button type="button" class="btn-remove-row" title="Delete this row" onclick="removeItem(' + i + ')">' +
+                    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+                        '<line x1="18" y1="6" x2="6" y2="18"></line>' +
+                        '<line x1="6" y1="6" x2="18" y2="18"></line>' +
+                    '</svg>' +
+                '</button>' +
+            '</div>' +
+        '</div>';
+    }
+    box.innerHTML = htmlRows;
+}
+
+function onDropdownSelect(index, val){
+    if(!val || !items[index]) return;
+    
+    var desc = val;
+    var price = "";
+    for(var c = 0; c < CATALOG.length; c++){
+        for(var k = 0; k < CATALOG[c].items.length; k++){
+            if(CATALOG[c].items[k].name === val){
+                price = CATALOG[c].items[k].defaultPrice;
+                break;
+            }
+        }
+        if(price) break;
+    }
+
+    items[index].desc = desc;
+    var descInput = document.getElementById("item-desc-" + index);
+    if(descInput) descInput.value = desc;
+
+    if(price && (!items[index].price || Number(items[index].price) === 0)){
+        items[index].price = price;
+        var priceInput = document.getElementById("item-price-" + index);
+        if(priceInput) priceInput.value = price;
+    }
+
+    var rowTotal = (Number(items[index].qty) || 0) * (Number(items[index].price) || 0);
+    var totalEl = document.getElementById("row-total-" + index);
+    if(totalEl){
+        totalEl.textContent = money(rowTotal);
+    }
+
+    renderPrintPages();
+}
+
+function onDescChange(index, value){
+    if(items[index]){
+        items[index].desc = value;
+        if(!items[index].price || Number(items[index].price) === 0){
+            for(var c = 0; c < CATALOG.length; c++){
+                for(var k = 0; k < CATALOG[c].items.length; k++){
+                    if(CATALOG[c].items[k].name.toLowerCase() === value.trim().toLowerCase()){
+                        var defPrice = CATALOG[c].items[k].defaultPrice;
+                        if(defPrice){
+                            items[index].price = defPrice;
+                            var priceInput = document.getElementById("item-price-" + index);
+                            if(priceInput) priceInput.value = defPrice;
+                            var rowTotal = (Number(items[index].qty) || 0) * Number(defPrice);
+                            var totalEl = document.getElementById("row-total-" + index);
+                            if(totalEl) totalEl.textContent = money(rowTotal);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        renderPrintPages();
+    }
+}
+
+function onQtyChange(index, value){
+    if(items[index]){
+        items[index].qty = value;
+        var rowTotal = (Number(value) || 0) * (Number(items[index].price) || 0);
+        var totalEl = document.getElementById("row-total-" + index);
+        if(totalEl){
+            totalEl.textContent = money(rowTotal);
+        }
+        renderPrintPages();
+    }
+}
+
+function onPriceChange(index, value){
+    if(items[index]){
+        items[index].price = value;
+        var rowTotal = (Number(items[index].qty) || 0) * (Number(value) || 0);
+        var totalEl = document.getElementById("row-total-" + index);
+        if(totalEl){
+            totalEl.textContent = money(rowTotal);
+        }
+        renderPrintPages();
+    }
+}
+
+function escapeHtml(v){
+    return String(v || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/* ================= DYNAMIC PAGINATION ENGINE ================= */
+function renderPrintPages(){
+    var container = document.getElementById("dynamicPages");
+    if(!container) return;
+
+    var grandTotal = 0;
+    for(var i = 0; i < items.length; i++){
+        grandTotal += (Number(items[i].qty) || 0) * (Number(items[i].price) || 0);
+    }
+
+var formGrandTotal = document.getElementById("formGrandTotal");
+    if(formGrandTotal) formGrandTotal.textContent = money(grandTotal);
+
+    var countBadge = document.getElementById("itemsCountBadge");
+    if(countBadge){
+        countBadge.textContent = items.length + (items.length === 1 ? " Item" : " Items");
+    }
+    var summaryItems = document.getElementById("summaryItemsText");
+    if(summaryItems){
+        summaryItems.textContent = items.length + (items.length === 1 ? " Item in quotation" : " Items in quotation");
+    }
+
+    // Each table page comfortably holds up to 8 rows with generous spacing
+    var ITEMS_PER_PAGE = 16;
+    var totalItems = items.length;
+    var numTablePages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+
+    var pagesHtml = "";
+
+    // 1. GENERATE TABLE PAGES
+    for(var p = 0; p < numTablePages; p++){
+        var startIdx = p * ITEMS_PER_PAGE;
+        var endIdx = Math.min(startIdx + ITEMS_PER_PAGE, totalItems);
+        var pageItems = items.slice(startIdx, endIdx);
+        var isLastTablePage = (p === numTablePages - 1);
+
+        var tableTitle = "COST ESTIMATION TABLE";
+        if(numTablePages > 1){
+            tableTitle += " (" + (p + 1) + " of " + numTablePages + ")";
+        }
+
+        var rowsHtml = "";
+        if(pageItems.length === 0){
+            rowsHtml = '<tr><td colspan="5" style="padding:28px;color:#666;font-style:italic;font-size:16px;">No items added yet. Click "+ Add Item" above.</td></tr>';
+        } else {
+            for(var r = 0; r < pageItems.length; r++){
+                var it = pageItems[r];
+                var actualIdx = startIdx + r;
+                var rowTot = (Number(it.qty) || 0) * (Number(it.price) || 0);
+                rowsHtml += '<tr>' +
+                    '<td>' + (actualIdx + 1) + '</td>' +
+                    '<td style="text-align:left;">' + escapeHtml(it.desc || "") + '</td>' +
+                    '<td>' + (it.qty || "") + '</td>' +
+                    '<td>' + money(it.price) + '</td>' +
+                    '<td>' + money(rowTot) + '</td>' +
+                '</tr>';
+            }
+        }
+
+        var tfootHtml = "";
+        if(isLastTablePage){
+            tfootHtml = '<tfoot><tr class="total-row">' +
+                '<td colspan="4" style="text-align:right;">GRAND TOTAL</td>' +
+                '<td>' + money(grandTotal) + '</td>' +
+            '</tr></tfoot>';
+        } else {
+            tfootHtml = '<tfoot><tr>' +
+                '<td colspan="5" style="text-align:right; font-style:italic; font-size:14px; padding:9px 12px; color:#555; background:#fafafa;">' +
+                    'Continued on next page...' +
+                '</td>' +
+            '</tr></tfoot>';
+        }
+
+        pagesHtml += '<section class="page page-table-sheet">' +
+            '<div class="border"></div>' +
+            '<img class="watermark" src="logo.png" alt="watermark">' +
+            '<div class="content page-table-content">' +
+                '<div class="section-title">' + tableTitle + '</div>' +
+                '<table class="quote-table">' +
+                    '<thead><tr>' +
+                        '<th style="width:10%">S.No</th>' +
+                        '<th style="width:43%">Item Description</th>' +
+                        '<th style="width:15%">Quantity</th>' +
+                        '<th style="width:17%">Unit Price</th>' +
+                        '<th style="width:15%">Total</th>' +
+                    '</tr></thead>' +
+                    '<tbody>' + rowsHtml + '</tbody>' +
+                    tfootHtml +
+                '</table>' +
+            '</div>' +
+        '</section>';
+    }
+
+    // 2. ATTACHED SPECIFICATIONS, TERMS, PAYMENT & SIGNATURE PAGE
+    var proj = (document.getElementById("projectName") ? document.getElementById("projectName").value : "Garden Design");
+    var loc = (document.getElementById("projectLocation") ? document.getElementById("projectLocation").value : "") || "__________";
+    var comp = (document.getElementById("completion") ? document.getElementById("completion").value : "15 to 20 days");
+    var val = (document.getElementById("validity") ? document.getElementById("validity").value : "10 to 15 days");
+
+        // Dynamically calculate Terms & Conditions bullet points
+    var termsInput = document.getElementById("termsConditions");
+    var termsLines = termsInput ? termsInput.value.split(/\r?\n+/) : getMasterTerms();
+    var termsHtml = "";
+    for(var t = 0; t < termsLines.length; t++){
+        var tLine = termsLines[t].trim();
+        if(tLine){
+            termsHtml += "<li>" + escapeHtml(tLine) + "</li>";
+        }
+    }
+
+    var payInput = document.getElementById("paymentTerms");
+    var payLines = payInput ? payInput.value.split(/\r?\n+/) : [];
+    var payItemsHtml = "";
+    for(var k = 0; k < payLines.length; k++){
+        var line = payLines[k].trim();
+        if(line){
+            payItemsHtml += "<li>" + escapeHtml(line) + "</li>";
+        }
+    }
+
+    pagesHtml += '<section class="page page-attached-sheet">' +
+        '<div class="border"></div>' +
+        '<img class="watermark" src="logo.png" alt="watermark">' +
+        '<div class="content page-terms-content">' +
+            '<div class="spec-card">' +
+                '<div class="spec-card-title">Project Specifications &amp; Timeline</div>' +
+                '<div class="spec-grid">' +
+                    '<div class="spec-item"><span class="spec-lbl">Project Scope:</span><span class="spec-val">' + escapeHtml(proj) + '</span></div>' +
+                    '<div class="spec-item"><span class="spec-lbl">Location:</span><span class="spec-val">' + escapeHtml(loc) + '</span></div>' +
+                    '<div class="spec-item"><span class="spec-lbl">Completion Period:</span><span class="spec-val">' + escapeHtml(comp) + '</span></div>' +
+                    '<div class="spec-item"><span class="spec-lbl">Quotation Validity:</span><span class="spec-val">' + escapeHtml(val) + '</span></div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="terms-header">TERMS AND CONDITIONS</div>' +
+            '<div class="terms"><ul>' + termsHtml + '</ul></div>' +
+            '<div class="payment-title">PAYMENT TERMS</div>' +
+            '<div class="payment"><ul>' + payItemsHtml + '</ul></div>' +
+            '<div class="signature">' +
+                '<div><b>For Green Vistaa Landscaping</b></div>' +
+                '<div class="signature-space"></div>' +
+                '<div class="signature-line">________________________</div>' +
+                '<div><b>Authorized Signature</b></div>' +
+            '</div>' +
+        '</div>' +
+    '</section>';
+
+    container.innerHTML = pagesHtml;
+}
+
+function updateOutput(){
+    var name = (document.getElementById("customerName") ? document.getElementById("customerName").value : "").trim();
+    var phone = (document.getElementById("phone") ? document.getElementById("phone").value : "").trim();
+    var address = (document.getElementById("customerAddress") ? document.getElementById("customerAddress").value : "").trim();
+
+    var outCustomer = document.getElementById("outCustomer");
+    if(outCustomer) outCustomer.textContent = name || "Customer Name";
+
+    var outAddress = document.getElementById("outAddress");
+    if(outAddress) outAddress.innerHTML = (address || "Customer Address").replace(/\r?\n/g, "<br>");
+
+    var outPhone = document.getElementById("outPhone");
+    if(outPhone) outPhone.textContent = phone || "__________";
+
+    renderPrintPages();
+}
+
+function updateDate(){
+    var d = new Date();
+    var day = String(d.getDate()).padStart(2, "0");
+    var month = String(d.getMonth() + 1).padStart(2, "0");
+    var year = d.getFullYear();
+    var outDate = document.getElementById("outDate");
+    if(outDate) outDate.textContent = day + "." + month + "." + year;
+}
+
+function togglePreview(){
+    var isShowing = document.body.classList.toggle("show-preview");
+    var btn = document.getElementById("previewBtn");
+    if(btn){
+        btn.textContent = isShowing ? "✕ Close Preview" : "👁️ Preview Quotation";
+        btn.classList.toggle("active", isShowing);
+    }
+    if(isShowing){
+        updateOutput();
+        renderPrintPages();
+        var banner = document.getElementById("previewBanner");
+        if(banner) banner.scrollIntoView({ behavior:"smooth" });
+    }
+}
+
+/* ================= QUOTATION DATA & STORAGE HELPERS ================= */
+function getCurrentQuotationData(){
+    return {
+        customerName: (document.getElementById("customerName") ? document.getElementById("customerName").value : "").trim(),
+        phone: (document.getElementById("phone") ? document.getElementById("phone").value : "").trim(),
+        address: (document.getElementById("customerAddress") ? document.getElementById("customerAddress").value : "").trim(),
+        projectName: (document.getElementById("projectName") ? document.getElementById("projectName").value : "Garden Design").trim(),
+        projectLocation: (document.getElementById("projectLocation") ? document.getElementById("projectLocation").value : "").trim(),
+        completion: (document.getElementById("completion") ? document.getElementById("completion").value : "15 to 20 days").trim(),
+        validity: (document.getElementById("validity") ? document.getElementById("validity").value : "10 to 15 days").trim(),
+        paymentTerms: (document.getElementById("paymentTerms") ? document.getElementById("paymentTerms").value : "").trim(),
+        termsConditions: (document.getElementById("termsConditions") ? document.getElementById("termsConditions").value : "").trim(),
+        items: JSON.parse(JSON.stringify(items || []))
+    };
+}
+
+function getQuotesHistory(){
+    try {
+        var saved = localStorage.getItem("GreenVistaa_Quotes_History");
+        return saved ? JSON.parse(saved) : [];
+    } catch(e){
+        console.error("Error reading history", e);
+        return [];
+    }
+}
+
+function saveQuotesHistory(list){
+    try {
+        localStorage.setItem("GreenVistaa_Quotes_History", JSON.stringify(list || []));
+        updateHistoryBadge();
+    } catch(e){
+        console.error("Error saving history", e);
+    }
+}
+
+function updateHistoryBadge(){
+    var list = getQuotesHistory();
+    var badge = document.getElementById("historyCountBadge");
+    if(badge){
+        badge.textContent = list.length;
+    }
+}
+
+/* ================= OPTION 2: QUOTATION HISTORY & DRAFTS ================= */
+function saveCurrentQuote(silent){
+    updateOutput();
+    renderPrintPages();
+
+    var current = getCurrentQuotationData();
+    var total = 0;
+    var validItemCount = 0;
+    for(var i = 0; i < current.items.length; i++){
+        var it = current.items[i];
+        if(it.desc || it.qty || it.price){
+            validItemCount++;
+            total += (Number(it.qty) || 0) * (Number(it.price) || 0);
+        }
+    }
+
+    if(!current.customerName && validItemCount === 0){
+        if(!silent) showToast("Please enter customer name or add quotation items.", true);
+        return;
+    }
+
+    var hist = getQuotesHistory();
+    var now = new Date();
+    var displayDate = now.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    }) + ", " + now.toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+    });
+
+    var quoteRecord = {
+        id: "gvq_" + Date.now(),
+        customerName: current.customerName || "Untitled Client",
+        phone: current.phone,
+        customerAddress: current.address,
+        projectName: current.projectName,
+        projectLocation: current.projectLocation,
+        completion: current.completion,
+        validity: current.validity,
+        paymentTerms: current.paymentTerms,
+        items: current.items,
+        grandTotal: total,
+        itemCount: validItemCount,
+        savedAt: now.toISOString(),
+        displayDate: displayDate
+    };
+
+    // Store in LastQuotation for backwards-compatibility
+    try {
+        localStorage.setItem("GreenVistaa_LastQuotation", JSON.stringify(quoteRecord));
+    } catch(e){}
+
+    // Prepend to top of history (keep latest 60)
+    hist.unshift(quoteRecord);
+    if(hist.length > 60) hist = hist.slice(0, 60);
+
+    saveQuotesHistory(hist);
+
+    if(!silent){
+        showToast("💾 Quotation saved to drafts history!");
+    }
+}
+
+function openHistoryModal(){
+    var modal = document.getElementById("savedQuotesModal");
+    if(!modal) return;
+    renderHistoryTable();
+    modal.style.display = "flex";
+}
+
+function closeHistoryModal(){
+    var modal = document.getElementById("savedQuotesModal");
+    if(modal) modal.style.display = "none";
+}
+
+function filterHistoryTable(){
+    var query = (document.getElementById("historySearchInput") ? document.getElementById("historySearchInput").value : "").toLowerCase().trim();
+    renderHistoryTable(query);
+}
+
+function renderHistoryTable(query){
+    query = query || "";
+    var tbody = document.getElementById("historyTableBody");
+    var subtitle = document.getElementById("savedQuotesSubtitle");
+    if(!tbody) return;
+
+    var hist = getQuotesHistory();
+    if(subtitle){
+        subtitle.textContent = hist.length + (hist.length === 1 ? " saved quotation draft" : " saved quotation drafts");
+    }
+
+    if(hist.length === 0){
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:34px 16px; color:#86efac; font-style:italic;">No saved quotations yet. Click "💾 Save Draft" to store any quotation.</td></tr>';
+        return;
+    }
+
+    var filtered = hist.filter(function(q){
+        if(!query) return true;
+        var str = ((q.customerName || '') + " " + (q.phone || '') + " " + (q.projectName || '') + " " + (q.projectLocation || '') + " " + (q.displayDate || '')).toLowerCase();
+        return str.indexOf(query) !== -1;
+    });
+
+    if(filtered.length === 0){
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:28px 16px; color:#fca5a5;">No quotations match "' + escapeHtml(query) + '".</td></tr>';
+        return;
+    }
+
+    var html = "";
+    for(var i = 0; i < filtered.length; i++){
+        var q = filtered[i];
+        html += '<tr>' +
+            '<td style="text-align:center; font-weight:bold; color:#a3d9b5;">' + (i + 1) + '</td>' +
+            '<td>' +
+                '<strong style="color:#ffffff; font-size:14px;">' + escapeHtml(q.customerName || "Untitled Client") + '</strong>' +
+                '<div style="font-size:12px; color:#86efac; margin-top:3px;">🌱 ' + escapeHtml(q.projectName || "Landscaping") + '</div>' +
+            '</td>' +
+            '<td>' +
+                '<div>' + (q.phone ? ('📞 ' + escapeHtml(q.phone)) : '<span style="color:#666;">No phone</span>') + '</div>' +
+                (q.projectLocation ? ('<div style="font-size:11.5px; color:#94a3b8; margin-top:2px;">📍 ' + escapeHtml(q.projectLocation) + '</div>') : '') +
+            '</td>' +
+            '<td style="font-size:12px; color:#cbd5e1;">' + escapeHtml(q.displayDate) + '<br><span style="font-size:11px; color:#86efac;">' + (q.itemCount || 0) + ' items</span></td>' +
+            '<td style="text-align:right; font-weight:700; color:#4ade80; font-size:14.5px;">₹' + money(q.grandTotal) + '</td>' +
+            '<td style="text-align:center;">' +
+                '<div style="display:flex; justify-content:center; gap:6px; flex-wrap:wrap;">' +
+                    '<button type="button" class="btn-history-action btn-hist-load" onclick="loadQuoteFromHistory(\'' + q.id + '\')" title="Load into editor">📂 Load</button>' +
+                    '<button type="button" class="btn-history-action btn-hist-wa" onclick="sendWhatsAppForHistoryQuote(\'' + q.id + '\')" title="Share via WhatsApp">💬 WA</button>' +
+                    '<button type="button" class="btn-history-action btn-hist-del" onclick="deleteQuoteFromHistory(\'' + q.id + '\')" title="Delete from history">🗑️</button>' +
+                '</div>' +
+            '</td>' +
+        '</tr>';
+    }
+    tbody.innerHTML = html;
+}
+
+function loadQuoteFromHistory(id){
+    var hist = getQuotesHistory();
+    var q = null;
+    for(var i = 0; i < hist.length; i++){
+        if(hist[i].id === id){
+            q = hist[i];
+            break;
+        }
+    }
+    if(!q){
+        showToast("Quote record not found.", true);
+        return;
+    }
+
+    if(document.getElementById("customerName")) document.getElementById("customerName").value = q.customerName || "";
+    if(document.getElementById("phone")) document.getElementById("phone").value = q.phone || "";
+    if(document.getElementById("customerAddress")) document.getElementById("customerAddress").value = q.customerAddress || "";
+    if(document.getElementById("projectName")) document.getElementById("projectName").value = q.projectName || "Garden Design";
+    if(document.getElementById("projectLocation")) document.getElementById("projectLocation").value = q.projectLocation || "";
+    if(document.getElementById("completion")) document.getElementById("completion").value = q.completion || "15 to 20 days";
+    if(document.getElementById("validity")) document.getElementById("validity").value = q.validity || "10 to 15 days";
+    if(document.getElementById("paymentTerms")) document.getElementById("paymentTerms").value = q.paymentTerms || "";
+    if(document.getElementById("termsConditions")) document.getElementById("termsConditions").value = q.termsConditions || getMasterTerms().join("\n");
+
+    items = (q.items && q.items.length) ? JSON.parse(JSON.stringify(q.items)) : [{ desc: "", qty: "", price: "" }];
+
+    renderEditor();
+    updateOutput();
+    renderPrintPages();
+    closeHistoryModal();
+    showToast("✅ Loaded quotation for " + (q.customerName || "client") + "!");
+}
+
+function sendWhatsAppForHistoryQuote(id){
+    var hist = getQuotesHistory();
+    for(var i = 0; i < hist.length; i++){
+        if(hist[i].id === id){
+            sendWhatsApp(hist[i]);
+            return;
+        }
+    }
+}
+
+function deleteQuoteFromHistory(id){
+    if(!confirm("Are you sure you want to delete this saved quotation?")) return;
+    var hist = getQuotesHistory();
+    hist = hist.filter(function(q){ return q.id !== id; });
+    saveQuotesHistory(hist);
+    renderHistoryTable(document.getElementById("historySearchInput") ? document.getElementById("historySearchInput").value : "");
+    showToast("Quotation draft deleted.");
+}
+
+function exportQuotesToExcel(){
+    var hist = getQuotesHistory();
+    if(!hist || hist.length === 0){
+        showToast("No saved quotations found to export.", true);
+        return;
+    }
+
+    var csvRows = [];
+    csvRows.push([
+        "Quote ID",
+        "Saved Date",
+        "Customer Name",
+        "Phone",
+        "Project Scope",
+        "Site Location",
+        "Address",
+        "Completion Period",
+        "Validity",
+        "Items Count",
+        "Items Breakdown",
+        "Grand Total (INR)",
+        "Payment Terms"
+    ]);
+
+    for(var i = 0; i < hist.length; i++){
+        var q = hist[i];
+        var itemsSummary = [];
+        var itemList = q.items || [];
+        for(var j = 0; j < itemList.length; j++){
+            var it = itemList[j];
+            if(it.desc || it.qty || it.price){
+                var rowTot = (Number(it.qty) || 0) * (Number(it.price) || 0);
+                itemsSummary.push((it.desc || "Item") + " [Qty: " + (it.qty || "0") + " @ Rs." + (it.price || "0") + " = Rs." + rowTot + "]");
+            }
+        }
+
+        csvRows.push([
+            q.id || ("Q-" + (i + 1)),
+            q.displayDate || q.savedAt || "",
+            q.customerName || "Untitled Client",
+            q.phone || "",
+            q.projectName || "General Landscaping",
+            q.projectLocation || "",
+            (q.customerAddress || "").replace(/\r?\n+/g, " "),
+            q.completion || "",
+            q.validity || "",
+            q.itemCount || itemsSummary.length,
+            itemsSummary.join(" | "),
+            q.grandTotal || 0,
+            (q.paymentTerms || "").replace(/\r?\n+/g, " | ")
+        ]);
+    }
+
+    var csvContent = csvRows.map(function(row){
+        return row.map(function(val){
+            var str = String(val === null || val === undefined ? "" : val);
+            str = str.replace(/"/g, '""');
+            return '"' + str + '"';
+        }).join(",");
+    }).join("\r\n");
+
+    var blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    var d = new Date();
+    var dateStr = String(d.getDate()).padStart(2, "0") + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + d.getFullYear();
+    a.href = url;
+    a.download = "GreenVistaa_Quotation_History_" + dateStr + ".csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast("📊 Exported " + hist.length + " quotations to Excel CSV successfully!");
+}
+
+function clearAllQuotesHistory(){
+    var hist = getQuotesHistory();
+    if(hist.length === 0){
+        showToast("History is already empty.");
+        return;
+    }
+    if(!confirm("Warning: Are you sure you want to delete ALL " + hist.length + " saved quotations? This cannot be undone.")) return;
+    saveQuotesHistory([]);
+    renderHistoryTable();
+    showToast("All quotation history cleared.");
+}
+
+/* ================= OPTION 3: DIRECT PDF & WHATSAPP SHARING ================= */
+function formatQuotationWhatsAppText(data){
+    var name = (data.customerName || "Customer").trim();
+    var project = (data.projectName || "Landscaping").trim();
+    var location = (data.projectLocation || "").trim();
+    var completion = (data.completion || "").trim();
+    var validity = (data.validity || "").trim();
+    var phone = (data.phone || "").trim();
+
+    var total = 0;
+    var lines = [];
+    var itemList = data.items || [];
+    for(var i = 0; i < itemList.length; i++){
+        var it = itemList[i];
+        if(!it.desc && !it.qty && !it.price) continue;
+        var rTot = (Number(it.qty) || 0) * (Number(it.price) || 0);
+        total += rTot;
+        var rowStr = (lines.length + 1) + ". *" + it.desc + "*";
+        if(it.qty) rowStr += " (Qty: " + it.qty + ")";
+        if(it.price) rowStr += " @ ₹" + money(it.price);
+        rowStr += " = *₹" + money(rTot) + "*";
+        lines.push(rowStr);
+    }
+
+    var text = "🌿 *GREEN VISTAA LANDSCAPING*\n" +
+               "_Professional Landscape & Garden Architecture_\n" +
+               "📍 Coimbatore | 📞 +91 9345536955\n" +
+               "✉️ greenvistalandscapescbe@gmail.com\n" +
+               "──────────────────────────\n" +
+               "📄 *OFFICIAL QUOTATION ESTIMATE*\n\n" +
+               "👤 *Client:* " + name + "\n";
+    if(phone) text += "📱 *Phone:* " + phone + "\n";
+    if(location) text += "📍 *Site Location:* " + location + "\n";
+    text += "🌱 *Project Scope:* " + project + "\n";
+    if(completion) text += "⏱️ *Timeline:* " + completion + "\n";
+    if(validity) text += "⏳ *Validity:* " + validity + "\n";
+    text += "\n📋 *COST ESTIMATION BREAKDOWN:*\n";
+
+    if(lines.length === 0){
+        text += "_(No items listed)_\n";
+    } else {
+        var maxShow = Math.min(lines.length, 12);
+        for(var k = 0; k < maxShow; k++){
+            text += lines[k] + "\n";
+        }
+        if(lines.length > maxShow){
+            text += "_...and " + (lines.length - maxShow) + " more items_\n";
+        }
+    }
+
+    text += "\n💰 *ESTIMATED GRAND TOTAL: ₹" + money(total) + "/-*\n";
+    text += "──────────────────────────\n";
+
+    if(data.paymentTerms && data.paymentTerms.trim()){
+        text += "💳 *Payment Schedule:*\n" + data.paymentTerms.trim() + "\n──────────────────────────\n";
+    }
+
+    text += "✨ _Thank you for choosing Green Vistaa Landscapes! We look forward to creating your dream green space._";
+    return text;
+}
+
+function sendWhatsApp(quoteData){
+    var current = quoteData || getCurrentQuotationData();
+    var phone = (current.phone || "").replace(/\D/g, "");
+
+    if(!phone){
+        phone = prompt("Please enter the customer WhatsApp mobile number (10 digits):", "");
+        if(!phone) return;
+        phone = phone.replace(/\D/g, "");
+    }
+
+    if(phone.length < 10){
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+
+    var wa = phone;
+    if(wa.length === 10) wa = "91" + wa;
+    else if(wa.indexOf("0") === 0) wa = "91" + wa.substring(1);
+    else if(wa.indexOf("91") !== 0) wa = "91" + wa;
+
+    var msg = formatQuotationWhatsAppText(current);
+    var url = "https://wa.me/" + wa + "?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+}
+
+function generatePDF(){
+    updateOutput();
+    renderPrintPages();
+
+    // Auto-save current quote to history before print
+    saveCurrentQuote(true);
+
+    var cust = (document.getElementById("customerName") ? document.getElementById("customerName").value : "").trim();
+    var proj = (document.getElementById("projectName") ? document.getElementById("projectName").value : "Quotation").trim();
+    var safeName = (cust || "Customer").replace(/[^a-zA-Z0-9_-]/g, "_");
+    var safeProj = proj.replace(/[^a-zA-Z0-9_-]/g, "_");
+    var d = new Date();
+    var dateSuffix = String(d.getDate()).padStart(2, "0") + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + d.getFullYear();
+
+    var originalTitle = document.title;
+    document.title = "GreenVistaa_Quotation_" + safeName + "_" + safeProj + "_" + dateSuffix;
+
+    showToast("📄 Opening Print/PDF dialog... Choose 'Save as PDF' as destination.");
+
+    setTimeout(function(){
+        window.print();
+        setTimeout(function(){
+            document.title = originalTitle;
+        }, 1200);
+    }, 280);
+}
+
+function saveQuotation(){
+    generatePDF();
+}
+
+function newQuotation(){
+    if(!confirm("Start a new quotation?")) return;
+
+    if(document.getElementById("customerName")) document.getElementById("customerName").value = "";
+    if(document.getElementById("phone")) document.getElementById("phone").value = "";
+    if(document.getElementById("customerAddress")) document.getElementById("customerAddress").value = "";
+    if(document.getElementById("projectLocation")) document.getElementById("projectLocation").value = "";
+    if(document.getElementById("termsConditions")) document.getElementById("termsConditions").value = getMasterTerms().join("\n");
+    items = [];
+    addItem();
+    updateOutput();
+    renderPrintPages();
+}
+
+var fieldIds = ["customerName", "phone", "customerAddress", "projectName", "projectLocation", "completion", "validity", "paymentTerms", "termsConditions"];
+for(var k = 0; k < fieldIds.length; k++){
+    var el = document.getElementById(fieldIds[k]);
+    if(el){
+        el.addEventListener("input", updateOutput);
+        el.addEventListener("change", updateOutput);
+    }
+}
+
+window.onload = function(){
+    checkSiteAccessOnLoad();
+    loadCatalogFromStorage();
+    initCatalogUI();
+    initTermsUI();
+    initLocationsUI();
+    updateAdminUI();
+    updateHistoryBadge();
+    addItem();
+    updateDate();
+    updateOutput();
+    renderPrintPages();
+};
+
+/* ================= PWA & OFFLINE SERVICE WORKER ================= */
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').then(function(reg) {
+            console.log('GreenVistaa ServiceWorker registered:', reg.scope);
+        }).catch(function(err) {
+            console.warn('GreenVistaa ServiceWorker failed:', err);
+        });
+    });
+}
+
+var deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    var btn = document.getElementById('btnInstallApp');
+    if (btn) btn.style.display = 'inline-flex';
+});
+
+function triggerAppInstall() {
+    if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then(function(choiceResult) {
+            if (choiceResult.outcome === 'accepted') {
+                showToast('Installing GreenVistaa Application... 📲');
+            }
+            deferredInstallPrompt = null;
+            var btn = document.getElementById('btnInstallApp');
+            if (btn) btn.style.display = 'none';
+        });
+    }
+}
+
+window.addEventListener('appinstalled', function() {
+    showToast('GreenVistaa App installed successfully! 🎉');
+    var btn = document.getElementById('btnInstallApp');
+    if (btn) btn.style.display = 'none';
+});
+
+</script>
+
+
+<!-- ================= ADMIN LOGIN MODAL ================= -->
+<div id="adminLoginModal" class="modal-backdrop no-print" style="display:none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-header">
+            <div class="modal-title-wrap">
+                <span class="modal-title-icon">🔒</span>
+                <h3>Admin Authentication</h3>
+            </div>
+            <button type="button" class="modal-close" onclick="closeAdminLogin()">✕</button>
+        </div>
+        <div class="modal-body">
+            <p class="modal-desc">Login with admin credentials to manage master catalog items and pricing.</p>
+            <div id="adminLoginError" class="admin-login-error" style="display:none;"></div>
+            <div class="admin-input-group">
+                <label for="adminUsername">Username</label>
+                <input type="text" id="adminUsername" placeholder="Enter admin username" autocomplete="username">
+            </div>
+            <div class="admin-input-group">
+                <label for="adminPassword">Password</label>
+                <input type="password" id="adminPassword" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginAdmin()">
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-modal-cancel" onclick="closeAdminLogin()">Cancel</button>
+            <button type="button" class="btn-modal-primary" onclick="loginAdmin()">Login to Admin</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= CATALOG CONTROL MANAGEMENT MODAL ================= -->
+<div id="catalogModal" class="modal-backdrop no-print" style="display:none;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-header">
+            <div class="modal-title-wrap">
+                <span class="modal-title-icon">🌿</span>
+                <div>
+                    <h3>Item Catalog Control Management</h3>
+                    <span class="modal-subtitle" id="catalogStatsSubtitle">Master Landscaping Catalog</span>
+                </div>
+            </div>
+            <div class="modal-header-actions">
+                <button type="button" class="btn-header-pill" onclick="openChangePasswordModal()">🔑 Change Password</button>
+                <button type="button" class="modal-close" onclick="closeCatalogModal()">✕</button>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <!-- TOP CONTROLS & ADD FORM TOGGLE -->
+            <div class="catalog-top-bar">
+                <div class="catalog-search-wrap">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="catalogSearchInput" placeholder="Search items by description or category..." oninput="filterCatalogTable()">
+                </div>
+                <div class="catalog-category-filter">
+                    <select id="catalogCategoryFilter" onchange="filterCatalogTable()">
+                        <option value="ALL">All Categories</option>
+                    </select>
+                </div>
+                <button type="button" class="btn-toggle-add-form" id="toggleAddFormBtn" onclick="toggleAddForm()">
+                    <span id="toggleAddFormIcon">➕</span> <span id="toggleAddFormText">Add New Item</span>
+                </button>
+            </div>
+
+            <!-- ADD / EDIT ITEM FORM (COLLAPSIBLE) -->
+            <div id="catalogItemFormCard" class="catalog-form-card" style="display:none;">
+                <div class="form-card-title">
+                    <span id="formActionTitle">➕ Add New Item to Master Catalog</span>
+                    <span class="form-card-close" onclick="cancelItemEdit()">✕</span>
+                </div>
+                <input type="hidden" id="editItemOrigCat" value="">
+                <input type="hidden" id="editItemOrigIdx" value="">
+
+                <div class="catalog-form-grid">
+                    <div class="form-group span-2">
+                        <label for="newItemName">Item Name / Description <span class="req">*</span></label>
+                        <input type="text" id="newItemName" placeholder="e.g. Mexican Grass Lawn Installation (Soil Prep, Levelling & Laying)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newItemCategory">Category <span class="req">*</span></label>
+                        <div class="category-select-wrapper">
+                            <select id="newItemCategory" onchange="onCategorySelectChange(this.value)">
+                                <!-- Dynamic Options -->
+                            </select>
+                            <input type="text" id="newCategoryCustomInput" placeholder="Type new category name..." style="display:none; margin-top:6px;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newItemPrice">Default Unit Price (₹)</label>
+                        <input type="number" id="newItemPrice" min="0" step="any" placeholder="e.g. 45">
+                    </div>
+
+                    <div class="form-group span-2">
+                        <label for="newItemUnit">Measurement / Specification Unit (Optional)</label>
+                        <select id="newItemUnit">
+                            <option value="">None / Specified in Description</option>
+                            <option value="Sq.ft">Sq.ft</option>
+                            <option value="Nos">Nos</option>
+                            <option value="Running Ft">Running Ft</option>
+                            <option value="Truck Load">Truck Load</option>
+                            <option value="Bag">Bag</option>
+                            <option value="Monthly Contract">Monthly Contract</option>
+                            <option value="Lump Sum">Lump Sum</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="catalog-form-actions">
+                    <button type="button" class="btn-cancel-edit" onclick="cancelItemEdit()">Cancel</button>
+                    <button type="button" class="btn-save-catalog-item" onclick="saveCatalogItem()">
+                        💾 <span id="saveItemBtnText">Save Item to Catalog</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CATALOG ITEMS TABLE -->
+            <div class="catalog-table-container">
+                <table class="catalog-table">
+                    <thead>
+                        <tr>
+                            <th style="width:45px; text-align:center;">#</th>
+                            <th style="width:42%;">Item Description</th>
+                            <th style="width:25%;">Category</th>
+                            <th style="width:16%; text-align:right;">Default Rate (₹)</th>
+                            <th style="width:17%; text-align:center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="catalogTableBody">
+                        <!-- Dynamic items rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal-footer catalog-modal-footer">
+            <div class="footer-left-tools">
+                <button type="button" class="btn-tool-outline" onclick="resetCatalogToDefault()" title="Reset to standard 35+ Green Vistaa items">
+                    🔄 Reset Defaults
+                </button>
+                <button type="button" class="btn-tool-outline" onclick="exportCatalogJSON()" title="Download catalog as JSON backup">
+                    📥 Export JSON
+                </button>
+                <button type="button" class="btn-tool-outline" onclick="triggerImportCatalogJSON()" title="Import catalog from JSON backup">
+                    📤 Import JSON
+                </button>
+                <input type="file" id="importCatalogFileInput" accept=".json" style="display:none;" onchange="importCatalogJSON(event)">
+            </div>
+            <div class="footer-right-tools">
+                <button type="button" class="btn-modal-primary" onclick="closeCatalogModal()">Done / Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= SAVED QUOTATIONS & DRAFTS MODAL ================= -->
+<div id="savedQuotesModal" class="modal-backdrop no-print" style="display:none;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-header">
+            <div class="modal-title-wrap">
+                <span class="modal-title-icon">📁</span>
+                <div>
+                    <h3>Saved Quotations &amp; Drafts</h3>
+                    <span class="modal-subtitle" id="savedQuotesSubtitle">Browse, reload, WhatsApp or delete saved quotations</span>
+                </div>
+            </div>
+            <div class="modal-header-actions">
+                <button type="button" class="btn-header-pill" onclick="exportQuotesToExcel()" title="Export all saved quotations to spreadsheet (Excel/CSV)">📊 Export to Excel</button>
+                <button type="button" class="btn-header-pill" onclick="saveCurrentQuote(false)">💾 Save Current Quote</button>
+                <button type="button" class="modal-close" onclick="closeHistoryModal()">✕</button>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="catalog-toolbar-row" style="margin-bottom:16px;">
+                <div class="catalog-search-wrap" style="flex:1;">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="historySearchInput" placeholder="Search saved quotes by customer name, phone, project scope, or location..." oninput="filterHistoryTable()">
+                </div>
+            </div>
+
+            <!-- SAVED QUOTES TABLE -->
+            <div class="catalog-table-container">
+                <table class="catalog-table">
+                    <thead>
+                        <tr>
+                            <th style="width:45px; text-align:center;">#</th>
+                            <th style="width:24%;">Customer &amp; Project</th>
+                            <th style="width:18%;">Phone &amp; Location</th>
+                            <th style="width:18%;">Saved Date</th>
+                            <th style="width:14%; text-align:right;">Total (₹)</th>
+                            <th style="width:22%; text-align:center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- Dynamic rows populated by renderHistoryTable() -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal-footer catalog-modal-footer">
+            <div class="footer-left-tools">
+                <button type="button" class="btn-tool-outline" onclick="exportQuotesToExcel()" title="Export all saved quotations to spreadsheet (Excel/CSV)" style="color:#6ee7b7; border-color:rgba(110,231,183,0.35);">
+                    📊 Export to Excel (CSV)
+                </button>
+                <button type="button" class="btn-tool-outline" onclick="clearAllQuotesHistory()" title="Delete all saved quotations from history" style="color:#fca5a5; border-color:rgba(239,68,68,0.35);">
+                    🗑️ Clear History
+                </button>
+            </div>
+            <div class="footer-right-tools">
+                <button type="button" class="btn-modal-primary" onclick="closeHistoryModal()">Done / Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= LOCATIONS & AREAS MANAGER MODAL ================= -->
+<div id="locationsManagerModal" class="modal-backdrop no-print" style="display:none; z-index:10001;">
+    <div class="modal-dialog modal-md" style="max-width:540px;">
+        <div class="modal-header">
+            <div class="modal-title-wrap">
+                <span class="modal-title-icon">📍</span>
+                <div>
+                    <h3>Project Locations &amp; Areas List</h3>
+                    <span class="modal-subtitle">Paste areas from your notepad (one area per line)</span>
+                </div>
+            </div>
+            <button type="button" class="modal-close" onclick="closeLocationsManagerModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <p style="margin:0 0 10px 0; font-size:13px; color:#a3d9b5;">
+                Copy your list of areas from Notepad and paste them below. Each line will become a selectable item in the Project Location dropdown and typing autocomplete:
+            </p>
+            <div class="form-group" style="margin-bottom:12px;">
+                <textarea id="locationsListTextarea" rows="10" placeholder="e.g.&#10;RS Puram, Coimbatore&#10;Gandhipuram, Coimbatore&#10;Peelamedu, Coimbatore&#10;Saravanampatti&#10;Race Course" style="width:100%; font-size:13.5px; font-family:inherit; padding:10px; border-radius:8px; background:rgba(0,0,0,0.25); color:#fff; border:1px solid rgba(74,222,128,0.3); resize:vertical;"></textarea>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <button type="button" class="btn-tool-outline" onclick="resetLocationsToDefault()" title="Reset to standard Coimbatore landscape zones" style="font-size:12px; padding:5px 10px;">
+                    🔄 Reset Defaults
+                </button>
+                <span id="locationsCountLabel" style="font-size:12px; color:#86efac;">0 areas</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-modal-cancel" onclick="closeLocationsManagerModal()">Cancel</button>
+            <button type="button" class="btn-modal-primary" onclick="saveLocationsFromManager()">💾 Save &amp; Apply Areas</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= CHANGE PASSWORD MODAL ================= -->
+<div id="changePasswordModal" class="modal-backdrop no-print" style="display:none; z-index:10001;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-header">
+            <div class="modal-title-wrap">
+                <span class="modal-title-icon">🔑</span>
+                <h3>Change Admin Password</h3>
+            </div>
+            <button type="button" class="modal-close" onclick="closeChangePasswordModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <div id="changePassError" class="admin-login-error" style="display:none;"></div>
+            <div class="admin-input-group">
+                <label for="currentAdminPass">Current Password</label>
+                <input type="password" id="currentAdminPass" placeholder="Current password">
+            </div>
+            <div class="admin-input-group">
+                <label for="newAdminPass">New Password</label>
+                <input type="password" id="newAdminPass" placeholder="New password (min 4 characters)">
+            </div>
+            <div class="admin-input-group">
+                <label for="confirmAdminPass">Confirm New Password</label>
+                <input type="password" id="confirmAdminPass" placeholder="Repeat new password">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-modal-cancel" onclick="closeChangePasswordModal()">Cancel</button>
+            <button type="button" class="btn-modal-primary" onclick="saveNewAdminPassword()">Update Password</button>
+        </div>
+    </div>
+</div>
+
+<!-- FLOATING TOAST NOTIFICATION -->
+<div id="appToast" class="app-toast no-print">
+    <span id="toastIcon">✅</span>
+    <span id="toastMessage">Action completed successfully</span>
+</div>
+
+</body>
+</html>
